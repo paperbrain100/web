@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <Layout className='overflow-hidden'>
-      <div className='flex flex-col gradient h-screen items-center justify-center'>
+      <div className='flex flex-col bg h-screen items-center justify-center'>
         <div className='m-6'>
           <Image
             src={Logo}
@@ -48,11 +48,11 @@ export default function Home() {
           </button>
         ) : (
           <div className='text-center flex flex-col'>
-            <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 my-8 px-4 hover:scale-105 transition-all'>
+            <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 mt-8 mb-2 px-4 hover:scale-105 transition-all'>
               <Link href='/search'>Start Reading!</Link>
             </button>
             <div>
-              <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 px-4 hover:scale-105 transition-all'>
+              <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-900 cursor-pointer bg-green-800 px-4 hover:scale-105 transition-all'>
                 <Link href='/paper'>Write your own paper</Link>
               </button>
             </div>
