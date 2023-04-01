@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const client = axios.create({
-  baseURL: "https://paperbrain.azurewebsites.net",
+  baseURL: "https://paperbrain.onrender.com/",
   headers: {
     "Content-Type": "application/json",
   },
