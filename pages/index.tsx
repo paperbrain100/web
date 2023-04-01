@@ -47,10 +47,15 @@ export default function Home() {
             <Link href='/api/auth/login'>Lets Get Started</Link>
           </button>
         ) : (
-          <div className='text-center'>
+          <div className='text-center flex flex-col'>
             <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 my-8 px-4 hover:scale-105 transition-all'>
               <Link href='/search'>Start Reading!</Link>
             </button>
+            <div>
+              <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 px-4 hover:scale-105 transition-all'>
+                <Link href='/paper'>Write your own paper</Link>
+              </button>
+            </div>
           </div>
         )}
 
