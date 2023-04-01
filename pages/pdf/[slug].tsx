@@ -11,7 +11,7 @@ import { RoughNotation } from 'react-rough-notation';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
-import Chatbot from '../chatbot';
+import Chatbot from '../../components/chatbot';
 
 const ViewPdf = () => {
     const router = useRouter();

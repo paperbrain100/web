@@ -4,12 +4,12 @@ import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from '../public/logo.png';
+import Logo from '../../public/logo.png';
 import { AiOutlineArrowDown, AiOutlineSearch, AiOutlineLogout, AiOutlineUpload } from 'react-icons/ai';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { RoughNotation } from "react-rough-notation";
 
-import Layout from './layout';
+import Layout from '../layout';
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -32,21 +32,26 @@ const Search = () => {
 
   return (
     <Layout>
-      <div className='flex gradient h-screen w-screen'>
+      <div className='bg h-screen w-screen'>
         {
           user &&
           <motion.div initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="absolute top-4 right-4 py-8 px-8 mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-            <Image src={Logo} alt="user-profile-picture" className="rounded-full w-16 h-16" width={16} height={16} />
-            <div className="text-center flex  items-center space-y-2 sm:text-left">
+            className="flex items-center justify-between px-6 h-[10vh]">
+
+            <div className='mt-12 p-4'>
+              <RoughNotation animationDelay={1000} animationDuration={2000} type="highlight" color='#bfecb6' show={true}>
+                <h1 className='text-3xl p-2 pb-0 text-gray-900 font-bold'>Looking for Research Papers?</h1>
+                <h1 className='text-xl p-2 pt-0 text-gray-500 font-bold'>We have got you covered.</h1>
+              </RoughNotation>
+            </div>
+
+            <div className="text-center flex items-center space-y-4 sm:text-left">
+              <Image src={Logo} alt="user-profile-picture" className="rounded-full mt-4 mx-2" width={32} height={32} />
               <div className="space-y-0.5 mb-2">
                 <p className=" text-black font-semibold">
                   {user.name}
-                </p>
-                <p className="text-slate-500 font-medium">
-                  {user.email}
                 </p>
               </div>
               <motion.button
@@ -82,27 +87,30 @@ const Search = () => {
         }
 
         <div className='flex items-center justify-center w-full'>
-
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             className='flex flex-col items-center p-12'>
 
-            <RoughNotation animationDelay={1000} animationDuration={2000} type="highlight" color='#cdf5d9' show={true}>
-              <div className='p-8'>
-                <h1 className='text-4xl text-gray-900 font-bold'>Looking for Research Papers?</h1>
-                <h1 className='text-2xl text-gray-500 font-bold'>We have got you covered.</h1>
-              </div>
-            </RoughNotation>
 
-            <form onSubmit={handleSubmit} className="flex rounded-full border-2 p-2 mt-6 items-center justify-center">
-              <input type="text" className="text-green-600 focus:outline-none px-4 bg-transparent w-[30vw]" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="eg: GPT-3 Stable Diffusion etc..." />
+            <form onSubmit={handleSubmit} className="flex rounded-full border-2 border-green-300 p-2 mt-6 items-center justify-center">
+              <input type="text" className="text-green-600 placeholder:text-gray-500 focus:outline-none px-4 bg-transparent w-[40vw]" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="eg: GPT-3 Stable Diffusion etc..." />
               <button className="flex items-center hover:scale-105 p-2 transition-all rounded-full  hover:bg-green-900 hover:text-slate-50" type='submit'><AiOutlineSearch size={21} /></button>
             </form>
+
           </motion.div>
         </div>
-      </div >
+        {/* <div className='h-[50vh] flex justify-evenly'>
+          <div className='p-2 border w-1/2 rounded-md m-4'>
+            <h1 className='text-2xl'>Upload your own papers on PaperBrain</h1>
+          </div>
+
+          <div className='p-2 border w-1/2 rounded-md m-4'>
+            <h1 className='text-2xl'>Upload your own papers on PaperBrain</h1>
+          </div>
+        </div> */}
+      </div>
     </Layout>
   )
 }

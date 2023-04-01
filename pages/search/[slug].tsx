@@ -105,7 +105,7 @@ const SearchResults = () => {
 
     return (
         <Layout className='overflow-hidden'>
-            <div className='flex gradient'>
+            <div className='flex bg'>
                 <Toaster />
                 {
                     response &&
