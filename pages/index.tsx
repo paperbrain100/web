@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { useUser } from '@auth0/nextjs-auth0'
-import { RoughNotation } from 'react-rough-notation'
-import Link from 'next/link'
-import Layout from './layout'
-import toast, { Toaster } from 'react-hot-toast'
-import Image from 'next/image'
-import Logo from '../public/logo.png'
-import Head from 'next/head'
+import React, { useEffect, useState } from 'react';
+import { useUser } from '@auth0/nextjs-auth0';
+import { RoughNotation } from 'react-rough-notation';
+import Link from 'next/link';
+import Layout from './layout';
+import toast, { Toaster } from 'react-hot-toast';
+import Image from 'next/image';
+import Logo from '../public/logo.png';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const { user } = useUser()
   const [active, setActive] = useState(false)
+  const router = useRouter();
 
   useEffect(() => {
     if (user) {
       setActive(true);
       toast.success(`Welcome! ${user.name}`);
+
+      router.push('/search');
     }
   }, [user])
 
   return (
     <>
       <Head>
-        
+
       </Head>
       <Layout className='overflow-hidden'>
         <Toaster />
@@ -56,29 +60,11 @@ export default function Home() {
             <p className='mt-8 font-extralight text-xl'>
               Exploring your study papers has never been easier!
             </p>
-            {!active ? (
+            {!active && (
               <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 my-6 px-4 hover:scale-105 transition-all'>
                 <Link href='/api/auth/login'>Lets Get Started</Link>
               </button>
-            ) : (
-              <div className='text-center flex flex-col'>
-                <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 mt-6 mb-2 px-4 hover:scale-105 transition-all'>
-                  <Link href='/search'>Start Reading!</Link>
-                </button>
-                <div>
-                  <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-800 cursor-pointer bg-green-700 px-4 hover:scale-105 transition-all'>
-                    <Link href='/paper'>Write your own paper</Link>
-                  </button>
-                </div>
-              </div>
             )}
-
-          </div>
-
-          <div className='bg-inverse h-screen'>
-            <video>
-
-            </video>
           </div>
         </div>
       </Layout>

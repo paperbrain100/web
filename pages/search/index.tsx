@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
+import { toast, Toaster } from 'react-hot-toast';
+import { storage } from '../../config/firebase';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '../../public/logo.png';
 import { AiOutlineArrowDown, AiOutlineSearch, AiOutlineLogout, AiOutlineUpload } from 'react-icons/ai';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { RoughNotation } from "react-rough-notation";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 import Layout from '../layout';
 
@@ -16,6 +21,9 @@ const Search = () => {
   const { user } = useUser();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [file, setFile] = useState<any>(null);
+  const [clicked, setClicked] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -28,6 +36,65 @@ const Search = () => {
       return;
     }
   }, [user, router]);
+
+  const handleChange = (e: any) => {
+    if (e.target.files[0].type == 'application/pdf') {
+      setFile(e.target.files[0]);
+    } else {
+      alert('Please upload a pdf file');
+      setFile(e.target.files[0]);
+    }
+
+    // check if file is more than 10mb
+    if (e.target.files[0].size > 10000000) {
+      alert('File size is too big');
+      setFile(e.target.files[0]);
+    }
+  }
+
+  const handleUploadSubmit = (e: any) => {
+    e.preventDefault();
+    if (file.type !== 'application/pdf') {
+      toast.error('Please upload a pdf file');
+      return;
+    }
+    // Create a root reference
+    const storageRef = ref(storage, 'pdfs/' + file.name + Date.now());
+
+    // Upload file and metadata to the object 'images/mountains.jpg'
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on('state_changed', (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+      setProgress(progress);
+    }
+      , (error) => {
+        switch (error.code) {
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
+
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      }
+      , () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          toast.success('File uploaded successfully!');
+
+          router.push(`/custom/pdf/${downloadURL.replace('https://firebasestorage.googleapis.com/v0/b/legal-ai-8ebe8.appspot.com/o/pdfs%2', '')}`);
+        });
+      }
+    );
+  }
 
 
   return (
@@ -74,10 +141,6 @@ const Search = () => {
                   <Link scroll={false} href='/api/auth/logout' className="flex items-center p-2 m-1 text-center transition-all text-sm text-green-600 font-semibold rounded-lg  hover:text-white hover:bg-green-400 hover:border-transparent focus:outline-none focus-2 focus-green-600 focus-offset-2">
                     <AiOutlineLogout size={21} className='mr-2' />Logout
                   </Link>
-
-                  <Link scroll={false} href='/upload' className="flex items-center p-2 m-1 text-center transition-all text-sm text-green-600 font-semibold rounded-lg hover:text-white hover:bg-green-400 hover:border-transparent focus:outline-none focus-2 focus-green-600 focus-offset-2">
-                    <AiOutlineUpload size={21} className='mr-2' />Upload Papers
-                  </Link>
                 </motion.div>
 
               }
@@ -94,22 +157,72 @@ const Search = () => {
             className='flex flex-col items-center p-12'>
 
 
-            <form onSubmit={handleSubmit} className="flex rounded-full border-2 border-green-300 p-2 mt-6 items-center justify-center">
-              <input type="text" className="text-green-600 placeholder:text-gray-500 focus:outline-none px-4 bg-transparent w-[40vw]" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="eg: GPT-3 Stable Diffusion etc..." />
+            <form onSubmit={handleSubmit} className="flex rounded-full border-2 border-green-300 p-1 mt-6 items-center justify-center">
+              <input type="text" onFocus={() => setClicked(true)} onBlur={() => setClicked(false)} className="text-green-600 placeholder:text-gray-500 focus:outline-none px-4 bg-transparent w-[40vw]" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="eg: GPT-3 Stable Diffusion etc..." />
               <button className="flex items-center hover:scale-105 p-2 transition-all rounded-full  hover:bg-green-900 hover:text-slate-50" type='submit'><AiOutlineSearch size={21} /></button>
             </form>
 
+            <div>
+              {
+                clicked && (
+                  <div className='absolute left-96 w-2/3 bg-white p-2 itemxs-center ring justify-center mt-4'>
+                    <h1 className='text-xl'>Search Results</h1>
+                    <div className='flex flex-col items-center justify-center mt-4'>
+                      <ul>
+                        <li>
+                          <Link href={`/search/${query}`}><p className='text-green-600 hover:text-green-900'>dsdsdsd</p></Link>
+                        </li>
+                        <li>
+                          <Link href={`/search/${query}`}><p className='text-green-600 hover:text-green-900'>dsdsdsd</p></Link>
+                        </li>
+                        <li>
+                          <Link href={`/search/${query}`}><p className='text-green-600 hover:text-green-900'>dsdsdsd</p></Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                )
+              }
+            </div>
+
           </motion.div>
         </div>
-        {/* <div className='h-[50vh] flex justify-evenly'>
-          <div className='p-2 border w-1/2 rounded-md m-4'>
-            <h1 className='text-2xl'>Upload your own papers on PaperBrain</h1>
+        <div className='min-h-[65vh] flex justify-around'>
+          <div className='p-2 flex flex-col items-center border w-1/2 rounded-md m-4'>
+            <h1 className='text-2xl'>Featured Papers</h1>
           </div>
 
-          <div className='p-2 border w-1/2 rounded-md m-4'>
+          <div className='p-2 flex flex-col items-center border w-1/2 rounded-md m-4'>
             <h1 className='text-2xl'>Upload your own papers on PaperBrain</h1>
+            <form className='flex flex-col items-center gap-y-4 mt-4' onSubmit={handleUploadSubmit}>
+              <input type='file' onChange={handleChange} className='bg-green-50 hover:bg-green-100 text-gray-800 font-bold py-2 px-4 rounded' />
+
+              {
+                file && (
+                  <button
+                    type='submit'
+                    className='flex items-center gap-x-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded'>
+                    <span>Upload</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>)
+              }
+              {
+                progress > 0 && (
+                  <CircularProgressbar className='absolute bottom-32 w-24 h-24'
+                    styles={buildStyles({
+                      textSize: '10px',
+                      pathColor: '#8beb86',
+                    })}
+
+                    value={Math.floor(progress)} text={`${Math.floor(progress)}%`} />
+                )
+              }
+            </form>
           </div>
-        </div> */}
+
+        </div>
       </div>
     </Layout>
   )
