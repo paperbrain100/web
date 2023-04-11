@@ -62,11 +62,11 @@ export default function Home() {
             <p className='mt-8 font-extralight text-xl'>
               Exploring your study papers has never been easier!
             </p>
-            {!active && (
+            {!active &&
               <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 my-6 px-4 hover:scale-105 transition-all'>
                 <Link href='/api/auth/login'>Lets Get Started</Link>
               </button>
-            )}
+            }
           </div>
         </div>
       </Layout>
