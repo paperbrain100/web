@@ -26,7 +26,9 @@ export default function Home() {
   return (
     <>
       <Head>
-
+        <title>PaperBrain</title>
+        <meta name='description' content='Exploring your study papers has never been easier!' />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <Layout className='overflow-hidden'>
         <Toaster />
