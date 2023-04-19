@@ -19,6 +19,9 @@ html {
 .bg-inverse {
   background: linear-gradient(#bae390, #ecf4e5);
 }
+.bg-inverse2 {
+  background: linear-gradient(#c2e99a, #ecf4e5);
+}
 
 ::-webkit-scrollbar {
   width: 2px;
