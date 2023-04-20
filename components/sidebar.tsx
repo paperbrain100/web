@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BiArrowBack } from 'react-icons/bi';
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
-import { AiFillRead } from 'react-icons/ai';
+import { AiFillRead, AiOutlineUpload } from 'react-icons/ai';
 
 type Type = {
     papers: any;
@@ -12,7 +12,7 @@ type Type = {
 
 const Sidebar = ({ papers, response }: Type) => {
     const router = useRouter();
-    console.log(response);
+
     const [modal, setOpenModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [pdfs, setPdfs] = useState('');
@@ -40,11 +40,11 @@ const Sidebar = ({ papers, response }: Type) => {
 
 
     return (
-        <div className='border-2 border-green-100'>
+        <div className='border-2 h-[89vh] border-green-100'>
             <div className='p-3 flex flex-col gap-y-2 items-center justify-center'>
-                <h2 className='font-bold text-xl capitalize m-2'>Your Starred Papers</h2>
+                <h2 className='font-bold text-xl capitalize m-1'>Your Starred Papers</h2>
             </div>
-            <div className='h-[84vh] w-[28vw] m-2 overflow-x-hidden scrollbarHide flex flex-col items-center'>
+            <div className='h-[74vh] w-[28vw] m-2 mt-0 overflow-x-hidden scrollbarHide flex flex-col items-center'>
                 {
                     response.map((paper: any) => {
                         return (
@@ -67,6 +67,11 @@ const Sidebar = ({ papers, response }: Type) => {
                         <p className='font-bold text-sm'>Loading...</p>
                     </div>
                 }
+            </div>
+            <div className='flex p-1 mx-2 border-green-200 rounded-md bg-white items-center justify-center hover:bg-green-600 text-green-600 hover:text-white'>
+                <button onClick={() => router.push('/upload')} className='p-2 text-base flex gap-x-2 items-center text-center rounded-lg cursor-pointer'>
+                    <AiOutlineUpload size={21} />Upload Papers
+                </button>
             </div>
         </div>
     )

@@ -61,6 +61,7 @@ const SearchResults = () => {
         client.post('/', { query: slug })
             .then(res => {
                 setResponse(res.data.papers);
+                console.log(res.data.papers);
                 toast.success(`Results for ${slug} found!`);
                 setLoading(false);
             })
@@ -69,7 +70,7 @@ const SearchResults = () => {
                 setLoading(false);
                 console.error(err);
             })
-    }, [slug]);
+    }, [slug, user, router]);
 
     return (
         <Layout className='overflow-hidden'>

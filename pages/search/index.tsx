@@ -7,6 +7,8 @@ import { toast, Toaster } from 'react-hot-toast';
 import Layout from '../layout';
 import Navbar from '../../components/navbar';
 import Sidebar from '../../components/sidebar';
+import { RoughNotation } from 'react-rough-notation';
+import { BsArrowReturnLeft } from 'react-icons/bs';
 
 
 const Search = () => {
@@ -18,19 +20,75 @@ const Search = () => {
       router.push('/');
       return;
     }
+
+    toast.success(`Welcome! ${user.name}`);
+
+
   }, [user, router]);
 
   return (
     <Layout>
-      <div className='bg h-screen'>
+      <Toaster />
+
+      <motion.div className='bg ring h-screen'>
         {
           user &&
           <Navbar heading={true} />
         }
         <div className='flex'>
-          <Sidebar papers={false} response={['gg','ggg']} />
+          <Sidebar papers={false} response={[{
+            "paper_authors"
+              :
+              "Elad Hazan",
+            "paper_summary"
+              :
+              "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
+            "paper_title"
+              :
+              "Lecture Notes: Optimization for Machine Learning",
+            "paper_url"
+              :
+              "http://arxiv.org/pdf/1909.03550v1"
+          },
+          {
+            "paper_authors"
+              :
+              "Elad Hazan",
+            "paper_summary"
+              :
+              "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
+            "paper_title"
+              :
+              "Lecture Notes: Optimization for Machine Learning",
+            "paper_url"
+              :
+              "http://arxiv.org/pdf/1909.03550v1"
+          },
+          {
+            "paper_authors"
+              :
+              "Elad Hazan",
+            "paper_summary"
+              :
+              "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
+            "paper_title"
+              :
+              "Lecture Notes: Optimization for Machine Learning",
+            "paper_url"
+              :
+              "http://arxiv.org/pdf/1909.03550v1"
+          }]} />
         </div>
-      </div>
+      </motion.div>
+
+      {/* <div className='flex bg-white w-[90%] h-full border-2 border-green-200 flex-col items-center m-4 justify-center'>
+          <div className='flex flex-col items-center justify-center p-8'>
+            <RoughNotation animationDelay={1000} animationDuration={2000} type="highlight" color='#f0fdf4' show={true}>
+              <h1 className='flex items-center font-bold text-3xl p-2 m-2'>Your Search Results are here <BsArrowReturnLeft size={21} className="ml-4" /></h1>
+            </RoughNotation>
+            <p className='w-[90%] text-base mt-2'>Click on Continue Reading to open it here</p>
+          </div>
+        </div> */}
     </Layout>
   )
 }

@@ -13,7 +13,6 @@ import Logo from '../public/logo.png';
 const Navbar = ({ heading }: { heading: Boolean }) => {
     const { user } = useUser();
     const router = useRouter();
-    const [isOpen, setIsOpen] = useState(false);
     const [newQuery, setNewQuery] = useState('');
     const [userProfileMenu, setUserProfileMenu] = useState(false);
 
@@ -70,9 +69,6 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
                             className="absolute top-16 right-8 w-44 border-2 rounded-md  border-green-100 bg-white z-12 flex flex-col m-2">
-                            {/* <Link className='flex items-center bg-white hover:bg-gray-50 m-1 p-2 px-4 text-sm text-center' href="/profile">
-                                                <AiOutlineUser className='mr-2' />Profile
-                                            </Link> */}
                             <Link className='flex items-center p-2 m-1 text-center transition-all text-sm text-green-600 font-semibold rounded-lg  hover:text-white hover:bg-green-400 hover:border-transparent focus:outline-none focus-2 focus-green-600 focus-offset-2' href="/api/auth/logout">
                                 <AiOutlineLogout className='mr-2' />Logout
                             </Link>
