@@ -72,7 +72,7 @@ export default function Home() {
           </div>
           <div className='bg-inverse2 p-12 pt-0 flex items-center justify-center'>
             <video
-              className='w-6/7 rounded-md'
+              className='w-6/7 rounded-xl shadow-2xl'
               autoPlay
               muted
               loop
