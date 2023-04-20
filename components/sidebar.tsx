@@ -44,7 +44,7 @@ const Sidebar = ({ papers, response }: Type) => {
             <div className='p-3 flex flex-col gap-y-2 items-center justify-center'>
                 <h2 className='font-bold text-xl capitalize m-1'>Your Starred Papers</h2>
             </div>
-            <div className='h-[74vh] w-[28vw] m-2 mt-0 overflow-x-hidden scrollbarHide flex flex-col items-center'>
+            <div className='h-[74vh] w-[25vw] m-2 mt-0 overflow-x-hidden scrollbarHide flex flex-col items-center'>
                 {
                     response.map((paper: any) => {
                         return (
