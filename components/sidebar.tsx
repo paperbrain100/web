@@ -8,9 +8,10 @@ import { AiFillRead, AiOutlineUpload } from 'react-icons/ai';
 type Type = {
     papers: any;
     response: any;
+    heading: string;
 }
 
-const Sidebar = ({ papers, response }: Type) => {
+const Sidebar = ({ papers, response, heading }: Type) => {
     const router = useRouter();
 
     const [modal, setOpenModal] = useState(false);
@@ -40,9 +41,9 @@ const Sidebar = ({ papers, response }: Type) => {
 
 
     return (
-        <div className='border-2 h-[89vh] border-green-100'>
+        <div className='border-2 h-[89vh] w-[27vw] border-green-100'>
             <div className='p-3 flex flex-col gap-y-2 items-center justify-center'>
-                <h2 className='font-bold text-xl capitalize m-1'>Your Starred Papers</h2>
+                <h2 className='font-bold text-xl capitalize m-1'>{heading}</h2>
             </div>
             <div className='h-[74vh] w-[25vw] m-2 mt-0 overflow-x-hidden scrollbarHide flex flex-col items-center'>
                 {
@@ -68,7 +69,7 @@ const Sidebar = ({ papers, response }: Type) => {
                     </div>
                 }
             </div>
-            <div className='flex p-1 mx-2 border-green-200 rounded-md bg-white items-center justify-center hover:bg-green-600 text-green-600 hover:text-white'>
+            <div className=' flex p-1 mx-2 border-green-200 rounded-md bg-white items-center justify-center hover:bg-green-600 text-green-600 hover:text-white'>
                 <button onClick={() => router.push('/upload')} className='p-2 text-base flex gap-x-2 items-center text-center rounded-lg cursor-pointer'>
                     <AiOutlineUpload size={21} />Upload Papers
                 </button>

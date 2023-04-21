@@ -37,7 +37,7 @@ const Search = () => {
           <Navbar heading={true} />
         }
         <div className='flex'>
-          <Sidebar papers={false} response={[{
+          <Sidebar papers={false} heading='Your Starred Papers' response={[{
             "paper_authors"
               :
               "Elad Hazan",

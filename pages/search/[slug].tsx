@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { client } from '../../utils/client';
-import axios from 'axios';
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Layout from '../layout';
 import { useUser } from '@auth0/nextjs-auth0';
 import { BsArrowReturnLeft } from 'react-icons/bs';
-import { BiArrowBack } from 'react-icons/bi';
-import { AiFillRead, AiFillFilePdf } from 'react-icons/ai';
+import { AiFillRead, AiFillFilePdf, AiOutlineStar } from 'react-icons/ai';
 import { toast, Toaster } from 'react-hot-toast';
 import { RoughNotation } from "react-rough-notation";
 
@@ -74,14 +71,20 @@ const SearchResults = () => {
 
     return (
         <Layout className='overflow-hidden'>
+            {
+                user &&
+                <Navbar heading={true} />
+            }
             <div className='flex bg h-screen'>
                 <Toaster />
-                {
-                    response &&
-                    <Sidebar papers={true} response={response} />
-                }
-                <div className='w-full h-[95vh] flex flex-col overflow-y-scroll items-center'>
+                <div className='flex flex-col'>
+                    {
+                        response &&
+                        <Sidebar papers={true} heading='Your Search results are here' response={response} />
+                    }
+                </div>
 
+                <div className=' w-full h-[89vh] flex flex-col overflow-y-scroll items-center'>
                     {
                         modal ?
                             <motion.div
@@ -114,7 +117,7 @@ const SearchResults = () => {
                                     </div>
                                     <div className='w-1/2 flex justify-center items-center mt-4'>
                                         <button onClick={() => handleClick(modalContent)} className='items-center flex gap-x-2 p-2 text-white text-sm text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 mt-4 m-2 px-4 hover:scale-105 transition-all w-32'><AiFillFilePdf />View PDF</button>
-                                        {/* <button onClick={() => handleStarred(modalContent)} className='items-center flex gap-x-2 p-2 text-green-700 border-green-700 border text-sm text-center rounded-lg hover:bg-gray-50 cursor-pointer mt-4 m-2 px-4 hover:scale-105 transition-all w-32'><AiOutlineStar />Star</button> */}
+                                        <button className='items-center flex gap-x-2 p-2 text-green-700 border-green-700 border text-sm text-center rounded-lg hover:bg-gray-50 cursor-pointer mt-4 m-2 px-4 hover:scale-105 transition-all w-32'><AiOutlineStar />Star</button>
                                     </div>
                                 </div>
                             </motion.div>
