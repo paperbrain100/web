@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
-import { RoughNotation } from 'react-rough-notation';
-import Link from 'next/link';
-import Layout from './layout';
-import toast, { Toaster } from 'react-hot-toast';
-import { AiOutlineTwitter, AiOutlineGithub } from 'react-icons/ai';
-import Image from 'next/image';
-import Logo from '../public/logo.png';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-
+import React, { useEffect, useState } from "react";
+import { useUser } from "@auth0/nextjs-auth0";
+import { RoughNotation } from "react-rough-notation";
+import Link from "next/link";
+import Layout from "./layout";
+import toast, { Toaster } from "react-hot-toast";
+import { AiOutlineTwitter, AiOutlineGithub } from "react-icons/ai";
+import Image from "next/image";
+import Logo from "../public/logo.png";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const { user } = useUser()
-  const [active, setActive] = useState(false)
+  const { user } = useUser();
+  const [active, setActive] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -21,29 +20,49 @@ export default function Home() {
       setActive(true);
       toast.success(`Welcome! ${user.name}`);
 
-      router.push('/search');
+      router.push("/search");
     }
-  }, [user, router])
+  }, [user, router]);
 
   return (
     <>
       <Head>
         <title>PaperBrain</title>
-        <meta name='description' content='Exploring your study papers has never been easier!' />
+        <meta
+          name='description'
+          content='Exploring your study papers has never been easier!'
+        />
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Layout className='overflow-hidden'>
         <Toaster />
-        <div className='bg h-screen'>
-          <div className='flex items-center justify-between px-6 h-[10vh]'>
-            <h1 className='opacity-50 text-3xl text-green-900'>PaperBrain</h1>
-
-            <ul className='flex gap-x-4 text-green-900 text-sm'>
-              <li className='cursor-pointer hover:scale-105 transition-all'><AiOutlineTwitter size={22} /></li>
-              <li className='cursor-pointer hover:scale-105 transition-all'><AiOutlineGithub size={22} /></li>
-            </ul>
+        <div className='bg-white h-screen'>
+          <div className='bg-gray-50 flex items-center justify-between px-6 shadow'>
+            <div className='inline-flex items-center'>
+              <Image
+                src={Logo}
+                className='rounded-2xl'
+                alt='PaperBrain'
+                width={60}
+                height={60}
+              />
+              <h1 className='text-3xl font-extrabold text-black mx-8'>
+                PaperBrain
+              </h1>
+            </div>
+            <button className='p-2 mx-8 text-white text-md text-center rounded-lg hover:bg-gray-800 cursor-pointer bg-black my-4 px-4 hover:scale-105 transition-all'>
+              <Link href={active ? "/search" : "/api/auth/login"}>Sign In</Link>
+            </button>
+            {/* <ul className='flex gap-x-4 text-green-900 text-sm'>
+              <li className='cursor-pointer hover:scale-105 transition-all'>
+                <AiOutlineTwitter size={22} />
+              </li>
+              <li className='cursor-pointer hover:scale-105 transition-all'>
+                <AiOutlineGithub size={22} />
+              </li>
+            </ul> */}
           </div>
-          <div className='flex flex-col h-[80vh] items-center justify-center'>
+          {/* <div className='flex flex-col h-[80vh] items-center justify-center'>
             <div className='m-6 mt-0'>
               <Image
                 src={Logo}
@@ -59,20 +78,29 @@ export default function Home() {
               type='box'
               show={true}
             >
-              <h1 className='font-bold text-8xl'>PaperBrain</h1>
+              <h1 className='font-extrabold text-8xl'>PaperBrain</h1>
             </RoughNotation>
             <p className='mt-8 font-extralight text-xl'>
               Exploring research papers has never been easier!
             </p>
             {
               <button className='p-2 text-white text-md text-center rounded-lg hover:bg-green-700 cursor-pointer bg-green-600 my-6 px-4 hover:scale-105 transition-all'>
-                <Link href={active ? '/search' : '/api/auth/login'}>Lets Get Started</Link>
+                <Link href={active ? "/search" : "/api/auth/login"}>
+                  Lets Get Started
+                </Link>
               </button>
             }
-          </div>
-          <div className='bg-inverse2 p-12 pt-0 flex items-center justify-center'>
+          </div> */}
+          <div className='p-12 flex items-center justify-center gap-x-12'>
+            <div className='w-[30%]'>
+              <h1 className='font-extrabold text-3xl'>
+                PaperBrain
+                <br />
+                Exploring research papers has never been easier!
+              </h1>
+            </div>
             <video
-              className='w-6/7 rounded-xl shadow-2xl'
+              className='w-[65%] rounded-xl shadow-2xl'
               autoPlay
               muted
               loop
@@ -82,5 +110,5 @@ export default function Home() {
         </div>
       </Layout>
     </>
-  )
+  );
 }
