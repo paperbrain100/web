@@ -36,7 +36,7 @@ export default function Home() {
       </Head>
       <Layout className='overflow-hidden'>
         <Toaster />
-        <div className='bg-gray-100 h-screen'>
+        <div className='h-screen'>
           <div className='bg-gray-50 flex items-center justify-between px-6 shadow'>
             <div className='inline-flex items-center mx-8 gap-x-6 my-3'>
               <Image

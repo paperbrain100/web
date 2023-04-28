@@ -9,7 +9,6 @@ import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import { RoughNotation } from "react-rough-notation";
 import { BsArrowReturnLeft } from "react-icons/bs";
-import { AiFillEdit } from "react-icons/ai";
 
 const Search = () => {
   const { user } = useUser();
@@ -32,6 +31,7 @@ const Search = () => {
         {user && <Navbar heading={true} />}
         <div className='flex'>
           <Sidebar
+            openModal={false}
             papers={false}
             heading='Your Starred Papers'
             response={[
@@ -42,20 +42,20 @@ const Search = () => {
                 paper_title: "Lecture Notes: Optimization for Machine Learning",
                 paper_url: "http://arxiv.org/pdf/1909.03550v1",
               },
-              {
-                paper_authors: "Elad Hazan",
-                paper_summary:
-                  "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
-                paper_title: "Lecture Notes: Optimization for Machine Learning",
-                paper_url: "http://arxiv.org/pdf/1909.03550v1",
-              },
-              {
-                paper_authors: "Elad Hazan",
-                paper_summary:
-                  "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
-                paper_title: "Lecture Notes: Optimization for Machine Learning",
-                paper_url: "http://arxiv.org/pdf/1909.03550v1",
-              },
+              // {
+              //   paper_authors: "Elad Hazan",
+              //   paper_summary:
+              //     "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
+              //   paper_title: "Lecture Notes: Optimization for Machine Learning",
+              //   paper_url: "http://arxiv.org/pdf/1909.03550v1",
+              // },
+              // {
+              //   paper_authors: "Elad Hazan",
+              //   paper_summary:
+              //     "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
+              //   paper_title: "Lecture Notes: Optimization for Machine Learning",
+              //   paper_url: "http://arxiv.org/pdf/1909.03550v1",
+              // },
             ]}
           />
 
@@ -80,10 +80,6 @@ const Search = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className='absolute bottom-2 rounded-full bg-gray-300 right-2 p-4 shadow-xl hover:scale-105'>
-          <AiFillEdit size={40} className='text-gray-500' />
-        </div> */}
       </motion.div>
     </Layout>
   );

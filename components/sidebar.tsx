@@ -9,36 +9,10 @@ type Type = {
   papers: any;
   response: any;
   heading: string;
+  openModal: any;
 };
 
-const Sidebar = ({ papers, response, heading }: Type) => {
-  const router = useRouter();
-
-  const [modal, setOpenModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [pdfs, setPdfs] = useState("");
-  const [modalContent, setModalContent] = useState({
-    paper_title: "",
-    paper_summary: "",
-    paper_url: "",
-    paper_authors: [],
-  });
-
-  const openModal = (e: any) => {
-    const url = e.paper_url;
-    setPdfs(url);
-    setOpenModal(true);
-    // convert e.paper_authors from string to array
-    e.paper_authors = e.paper_authors.split(",");
-    console.log(e.paper_authors);
-    modalContent.paper_authors = e.paper_authors;
-    setModalContent(e);
-  };
-
-  const handleClick = (e: any) => {
-    router.push(`/pdf/${e.paper_title.replace(/ /g, "-")}`);
-  };
-
+const Sidebar = ({ papers, response, heading, openModal }: Type) => {
   return (
     <div className='border-2 h-[91vh] w-[27vw] shadow'>
       <div className='p-3 flex flex-col gap-y-2 items-center justify-center'>
@@ -53,16 +27,17 @@ const Sidebar = ({ papers, response, heading }: Type) => {
             >
               <div className='flex bg-white flex-col items-center justify-center rounded-lg'>
                 <div className='flex flex-wrap flex-col items-center justify-center'>
-                  <h3 className='font-bold text-xl p-2 px-4 text-gray-700 bg-gray-100 rounded-lg'>
+                  <h3 className='font-semibold text-base p-2 px-4 text-gray-700 bg-gray-100 rounded-lg w-full'>
                     {paper.paper_title}
                   </h3>
                   <p className='text-sm text-clip overflow-hidden h-24 p-2 px-4'>
-                    {paper.paper_summary}
+                    {paper.paper_summary.slice(0, 150)}
+                    {paper.paper_summary.length > 150 ? "..." : ""}
                   </p>
                 </div>
                 <button
                   onClick={() => openModal(paper)}
-                  className='items-center flex gap-x-2 p-2 text-white text-sm text-center rounded-lg hover:bg-gray-800 cursor-pointer bg-gray-600 mt-4 m-2 px-4 hover:scale-105 transition-all'
+                  className='items-center flex gap-x-2 p-2 text-white text-sm text-center rounded-lg hover:bg-gray-600 cursor-pointer bg-gray-800 mt-4 m-2 px-4 hover:scale-105 transition-all'
                 >
                   <AiFillRead />
                   Continue Reading
@@ -71,11 +46,11 @@ const Sidebar = ({ papers, response, heading }: Type) => {
             </div>
           );
         })}
-        {loading && (
+        {/* {loading && (
           <div className='flex flex-col items-center justify-center'>
             <p className='font-bold text-sm'>Loading...</p>
           </div>
-        )}
+        )} */}
       </div>
       {/* <div className=' flex p-1 mx-2 border-green-200 rounded-md bg-gray-300 items-center justify-center hover:bg-green-600 text-white hover:text-white'>
         <button

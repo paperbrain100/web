@@ -23,6 +23,7 @@ const Search = () => {
         {user && <Navbar heading={true} />}
         <div className='flex'>
           <Sidebar
+            openModal={false}
             papers={false}
             heading='Your Uploaded Papers'
             response={[
