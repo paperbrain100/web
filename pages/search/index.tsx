@@ -3,6 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { toast, Toaster } from "react-hot-toast";
+import Cookies from 'js-cookie';
 
 import Layout from "../layout";
 import Navbar from "../../components/navbar";
@@ -10,9 +11,12 @@ import Sidebar from "../../components/sidebar";
 import { RoughNotation } from "react-rough-notation";
 import { BsArrowReturnLeft } from "react-icons/bs";
 
+
+
 const Search = () => {
   const { user } = useUser();
   const router = useRouter();
+  
 
   useEffect(() => {
     if (!user) {
@@ -20,13 +24,15 @@ const Search = () => {
       return;
     }
 
+    console.log(Cookies.get('apiKey'));
+
     toast.success(`Welcome! ${user.name}`);
   }, [user]);
+
 
   return (
     <Layout className='overflow-hidden'>
       <Toaster />
-
       <motion.div className='bg-white h-screen'>
         {user && <Navbar heading={true} />}
         <div className='flex'>
@@ -41,21 +47,7 @@ const Search = () => {
                   "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
                 paper_title: "Lecture Notes: Optimization for Machine Learning",
                 paper_url: "http://arxiv.org/pdf/1909.03550v1",
-              },
-              // {
-              //   paper_authors: "Elad Hazan",
-              //   paper_summary:
-              //     "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
-              //   paper_title: "Lecture Notes: Optimization for Machine Learning",
-              //   paper_url: "http://arxiv.org/pdf/1909.03550v1",
-              // },
-              // {
-              //   paper_authors: "Elad Hazan",
-              //   paper_summary:
-              //     "Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.",
-              //   paper_title: "Lecture Notes: Optimization for Machine Learning",
-              //   paper_url: "http://arxiv.org/pdf/1909.03550v1",
-              // },
+              }
             ]}
           />
 
@@ -81,7 +73,7 @@ const Search = () => {
           </div>
         </div>
       </motion.div>
-    </Layout>
+    </Layout >
   );
 };
 

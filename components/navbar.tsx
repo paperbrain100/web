@@ -13,12 +13,15 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import Logo from "../public/logo.png";
+import { toast, Toaster } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const Navbar = ({ heading }: { heading: Boolean }) => {
   const { user } = useUser();
   const router = useRouter();
   const [newQuery, setNewQuery] = useState("");
   const [userProfileMenu, setUserProfileMenu] = useState(false);
+  const [apiKey, setApiKey] = useState("");
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -29,6 +32,20 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
     setUserProfileMenu(!userProfileMenu);
   };
 
+  const handleAPIKeySubmit = (e: any) => {
+    e.preventDefault();
+
+    if (apiKey) {
+      toast.success("API Key saved successfully!");
+    }
+    console.log(apiKey);
+
+    if (Cookies.get('apiKey')) {
+      Cookies.remove('apiKey');
+    }
+
+    Cookies.set('apiKey', apiKey, { expires: 7 })
+  };
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
@@ -36,6 +53,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
       transition={{ duration: 0.5 }}
       className='bg-gray-50 w-full p-1 z-10 flex items-center justify-around shadow'
     >
+      <Toaster />
       {heading && (
         <h1 className='text-2xl font-extrabold text-black'>PaperBrain</h1>
       )}
@@ -87,7 +105,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2 }}
-              className='absolute top-16 right-8 w-44 border-2 rounded-md border-gray-200 bg-white z-12 flex flex-col m-2'
+              className='absolute top-16 right-8 w-52 border-2 rounded-md border-gray-200 bg-white z-12 flex flex-col m-2'
             >
               <Link
                 className='flex items-center p-2 m-1 text-center transition-all text-sm text-gray-600 font-semibold rounded-lg hover:text-white hover:bg-gray-600 hover:border-transparent focus:outline-none focus-2 focus-green-600 focus-offset-2'
@@ -117,6 +135,11 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
                 <AiOutlineLogout className='mr-2' />
                 Logout
               </Link>
+
+              <form className="flex p-2 m-1 mt-0 " onSubmit={handleAPIKeySubmit}>
+                <input type="text" className="text-gray-800 p-2 bg-transparent focus:outline-none text-sm border w-[90%] placeholder:text-gray-500" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="Open AI API key here" />
+                <button className="text-sm ml-2" type="submit"><AiOutlineEdit /></button>
+              </form>
             </motion.div>
           )}
         </div>
