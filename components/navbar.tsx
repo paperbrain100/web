@@ -34,7 +34,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className='bg-gray-50 w-full z-10 flex items-center justify-around shadow'
+      className='bg-gray-50 w-full p-1 z-10 flex items-center justify-around shadow'
     >
       {heading && (
         <h1 className='text-2xl font-extrabold text-black'>PaperBrain</h1>
@@ -49,7 +49,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
           className=' text-gray-800 font-medium bg-transparent focus:outline-none px-4 placeholder:text-gray-500 w-[40vw]'
           value={newQuery}
           onChange={(e) => setNewQuery(e.target.value)}
-          placeholder='eg: GPT-3 Stable Diffusion etc...'
+          placeholder='eg: GPT-4, Stable Diffusion etc...'
         />
         <button
           className='flex items-center hover:scale-105 p-2 transition-all rounded-full hover:bg-gray-700 hover:text-gray-50'

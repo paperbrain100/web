@@ -14,7 +14,7 @@ type Type = {
 
 const Sidebar = ({ papers, response, heading, openModal }: Type) => {
   return (
-    <div className='border-2 h-[91vh] w-[27vw] shadow'>
+    <div className='border-2 h-[92vh] w-[27vw] rounded shadow'>
       <div className='p-3 flex flex-col gap-y-2 items-center justify-center'>
         <h2 className='font-bold text-xl capitalize m-1'>{heading}</h2>
       </div>
