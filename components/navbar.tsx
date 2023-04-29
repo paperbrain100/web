@@ -42,11 +42,11 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
 
       <form
         onSubmit={handleSubmit}
-        className='flex rounded-full border-2 border-gray-400 px-2 mx-12 items-center justify-center'
+        className='flex rounded-full p-1 border-2 border-gray-400 px-2 mx-12 items-center justify-center'
       >
         <input
           type='text'
-          className=' text-gray-800 font-medium focus:outline-none px-4 placeholder:text-gray-500 w-[40vw]'
+          className=' text-gray-800 font-medium bg-transparent focus:outline-none px-4 placeholder:text-gray-500 w-[40vw]'
           value={newQuery}
           onChange={(e) => setNewQuery(e.target.value)}
           placeholder='eg: GPT-3 Stable Diffusion etc...'

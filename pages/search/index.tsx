@@ -21,7 +21,7 @@ const Search = () => {
     }
 
     toast.success(`Welcome! ${user.name}`);
-  }, [user, router]);
+  }, [user]);
 
   return (
     <Layout className='overflow-hidden'>

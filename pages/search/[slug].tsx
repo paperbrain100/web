@@ -46,20 +46,10 @@ const SearchResults = () => {
   useEffect(() => {
     setLoading(true);
 
-    if (!slug) return;
-
-    if (!user) {
-      toast.error("You are not logged in!");
-      setLoading(false);
-      router.push("/");
-      return;
-    }
-
     client
       .post("/", { query: slug })
       .then((res) => {
         setResponse(res.data.papers);
-        console.log(res.data.papers);
         toast.success(`Results for ${slug} found!`);
         setLoading(false);
       })
@@ -69,6 +59,7 @@ const SearchResults = () => {
         console.error(err);
       });
   }, [slug, user, router]);
+
 
   return (
     <Layout className='overflow-hidden'>
@@ -142,7 +133,7 @@ const SearchResults = () => {
                     show={true}
                   >
                     <h1 className='flex items-center font-bold text-3xl p-2 m-2'>
-                      Your Starred Papers are here{" "}
+                      Your Search Results are here{" "}
                       <BsArrowReturnLeft size={21} className='ml-4' />
                     </h1>
                   </RoughNotation>

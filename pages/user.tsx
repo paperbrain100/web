@@ -9,14 +9,14 @@ const User = () => {
   const { user } = useUser();
   return (
     <>
-      {/* <Head>
+      <Head>
         <title>PaperBrain</title>
         <meta
           name='description'
           content='Exploring your study papers has never been easier!'
         />
         <link rel='icon' href='/favicon.ico' />
-      </Head> */}
+      </Head>
       <Layout className='overflow-hidden'>
         <Navbar heading={true} />
         <div className='flex items-center justify-center p-8'>

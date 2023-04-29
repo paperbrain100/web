@@ -19,7 +19,6 @@ export default function Home() {
     if (user) {
       setActive(true);
       toast.success(`Welcome! ${user.name}`);
-
       router.push("/search");
     }
   }, [user, router]);
