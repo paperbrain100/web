@@ -25,7 +25,6 @@ export default function Pdf() {
 
     client.post("/getpdf", { pdfURL })
       .then((res) => {
-        console.log(res.data);
         setFpath(res.data.f_path);
       })
       .catch((err) => {
