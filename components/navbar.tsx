@@ -121,7 +121,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
                 href="/user"
               >
                 <AiOutlineUser className="mr-2" />
-                User Profile
+                Your Profile
               </Link>
               <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
