@@ -19,7 +19,6 @@ export default function Home() {
     if (user) {
       setActive(true);
       toast.success(`Welcome! ${user.name}`);
-      router.push('/search');
     }
   }, [user, router]);
 
@@ -48,7 +47,10 @@ export default function Home() {
               <h1 className="text-2xl font-extrabold text-black">PaperBrain</h1>
             </div>
             <button className="text-md mx-8 cursor-pointer rounded-lg bg-black p-2 px-4 text-center text-white transition-all hover:scale-105">
-              <Link href={active ? '/search' : '/api/auth/login'}>Sign In</Link>
+              <Link href={active ? '/search' : '/api/auth/login'}>{
+                active ? 'Continue Reading!' : 'Sign In'
+              }
+              </Link>
             </button>
           </div>
           <div className="flex items-center justify-center gap-x-12 p-12">

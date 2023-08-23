@@ -24,7 +24,7 @@ const Search = () => {
     console.log(Cookies.get('apiKey'));
 
     toast.success(`Welcome! ${user.name}`);
-  }, [user]);
+  }, [user, router]);
 
   return (
     <Layout className="overflow-hidden">
