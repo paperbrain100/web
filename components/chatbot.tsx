@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import { useUser } from "@auth0/nextjs-auth0";
-import { BsArrowReturnRight } from "react-icons/bs";
-import { client } from "../utils/client";
+import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useUser } from '@auth0/nextjs-auth0';
+import { BsArrowReturnRight } from 'react-icons/bs';
+import { client } from '../utils/client';
 
 interface Chat {
   message: string;
@@ -10,11 +10,11 @@ interface Chat {
 }
 
 const Chatbot = (props: { name: string; f_path: string }) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
-  let url = props.name == "explain" ? "/chat" : "/explain";
+  let url = props.name == 'explain' ? '/chat' : '/explain';
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +28,7 @@ const Chatbot = (props: { name: string; f_path: string }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setChats([...chats, { message: input, author: "user" }]);
+    setChats([...chats, { message: input, author: 'user' }]);
     setLoading(true);
 
     client
@@ -36,50 +36,50 @@ const Chatbot = (props: { name: string; f_path: string }) => {
         message: input,
         f_path: props.f_path,
       })
-      .then((res) => {
+      .then(res => {
         const Answer = res.data.answer;
         setChats([
           ...chats,
-          { message: input, author: "user" },
-          { message: Answer, author: "bot" },
+          { message: input, author: 'user' },
+          { message: Answer, author: 'bot' },
         ]);
-        setInput("");
+        setInput('');
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         setChats([
           ...chats,
-          { message: input, author: "user" },
+          { message: input, author: 'user' },
           {
             message:
               "Sorry, We've ran out of Open AI credits right now! We know its not ideal.",
-            author: "bot",
+            author: 'bot',
           },
         ]);
-        setInput("");
+        setInput('');
         setLoading(false);
       });
   };
 
   return (
-    <div className='mx-2'>
+    <div className="mx-2">
       <div
         ref={chatContainerRef}
-        className='mx-2 mt-2 h-[70vh] overflow-y-auto shadow'
+        className="mx-2 mt-2 h-[70vh] overflow-y-auto shadow"
       >
         {chats.map((chat, index) => (
           <div
             key={index}
-            className={`py-0.5 rounded-lg mx-2.5 my-2 ${
-              chat.author === "user" ? "text-right" : "text-left w-[90%]"
+            className={`mx-2.5 my-2 rounded-lg py-0.5 ${
+              chat.author === 'user' ? 'text-right' : 'w-[90%] text-left'
             }`}
           >
             <span
-              className={`inline-block px-2 py-0.5 text-base font-medium rounded-lg ${
-                chat.author === "user"
-                  ? "bg-[#FFEFD9] text-[#FF9500] rounded-br-none"
-                  : "bg-gray-100 text-black rounded-bl-none"
+              className={`inline-block rounded-lg px-2 py-0.5 text-base font-medium ${
+                chat.author === 'user'
+                  ? 'rounded-br-none bg-[#FFEFD9] text-[#FF9500]'
+                  : 'rounded-bl-none bg-gray-100 text-black'
               }`}
             >
               {chat.message}
@@ -90,28 +90,28 @@ const Chatbot = (props: { name: string; f_path: string }) => {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity }}
-            className='flex items-start ml-2 ring-gray-400 rounded-full h-4 w-4 animate-spin mt-2'
+            className="ml-2 mt-2 flex h-4 w-4 animate-spin items-start rounded-full ring-gray-400"
           >
-            <div className='h-2 w-2 bg-gray-400 rounded-full'></div>
+            <div className="h-2 w-2 rounded-full bg-gray-400"></div>
           </motion.div>
         )}
       </div>
-      <div className='bg-gray-200 mx-4 rounded-lg z-1 py-2 drop-shadow-md w-[42vw] bottom-4 absolute'>
-        <form onSubmit={handleSubmit} className=''>
-          <div className='px-4 py-2 flex items-center'>
+      <div className="z-1 absolute bottom-4 mx-4 w-[42vw] rounded-lg bg-gray-200 py-2 drop-shadow-md">
+        <form onSubmit={handleSubmit} className="">
+          <div className="flex items-center px-4 py-2">
             <input
-              type='text'
+              type="text"
               value={input}
-              placeholder='Ask about the paper here...'
-              onChange={(event) =>
+              placeholder="Ask about the paper here..."
+              onChange={event =>
                 setInput(
                   event.target.value.charAt(0).toUpperCase() +
-                    event.target.value.slice(1)
+                    event.target.value.slice(1),
                 )
               }
-              className='bg-inherit border-none outline-none text-[#707070] w-full placeholder:text-[#707070]'
+              className="w-full border-none bg-inherit text-[#707070] outline-none placeholder:text-[#707070]"
             />
-            <button type='submit' className='ml-2'>
+            <button type="submit" className="ml-2">
               <BsArrowReturnRight />
             </button>
           </div>

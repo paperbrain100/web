@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { BiArrowBack } from "react-icons/bi";
-import { useUser } from "@auth0/nextjs-auth0";
-import { useRouter } from "next/router";
-import { AiFillRead, AiOutlineUpload } from "react-icons/ai";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { BiArrowBack } from 'react-icons/bi';
+import { useUser } from '@auth0/nextjs-auth0';
+import { useRouter } from 'next/router';
+import { AiFillRead, AiOutlineUpload } from 'react-icons/ai';
 
 type Type = {
   papers: any;
@@ -14,30 +14,30 @@ type Type = {
 
 const Sidebar = ({ papers, response, heading, openModal }: Type) => {
   return (
-    <div className='border-2 h-[92vh] w-[27vw] rounded shadow'>
-      <div className='p-3 flex flex-col gap-y-2 items-center justify-center'>
-        <h2 className='font-bold text-xl capitalize m-1'>{heading}</h2>
+    <div className="h-[92vh] w-[27vw] rounded border-2 shadow">
+      <div className="flex flex-col items-center justify-center gap-y-2 p-3">
+        <h2 className="m-1 text-xl font-bold capitalize">{heading}</h2>
       </div>
-      <div className='h-[78vh] w-[25vw] m-2 mt-0 overflow-x-hidden scrollbarHide flex flex-col items-center'>
+      <div className="scrollbarHide m-2 mt-0 flex h-[78vh] w-[25vw] flex-col items-center overflow-x-hidden">
         {response.map((paper: any) => {
           return (
             <div
               key={paper.paper_title}
-              className='w-full rounded-lg border-2 border-gray-300 m-1 flex flex-col items-center justify-center'
+              className="m-1 flex w-full flex-col items-center justify-center rounded-lg border-2 border-gray-300"
             >
-              <div className='flex bg-white flex-col items-center justify-center rounded-lg'>
-                <div className='flex flex-wrap flex-col items-center justify-center'>
-                  <h3 className='font-semibold text-base p-2 px-4 text-gray-700 bg-gray-100 rounded-lg w-full'>
+              <div className="flex flex-col items-center justify-center rounded-lg bg-white">
+                <div className="flex flex-col flex-wrap items-center justify-center">
+                  <h3 className="w-full rounded-lg bg-gray-100 p-2 px-4 text-base font-semibold text-gray-700">
                     {paper.paper_title}
                   </h3>
-                  <p className='text-sm text-clip overflow-hidden h-24 p-2 px-4'>
+                  <p className="h-24 overflow-hidden text-clip p-2 px-4 text-sm">
                     {paper.paper_summary.slice(0, 150)}
-                    {paper.paper_summary.length > 150 ? "..." : ""}
+                    {paper.paper_summary.length > 150 ? '...' : ''}
                   </p>
                 </div>
                 <button
                   onClick={() => openModal(paper)}
-                  className='items-center flex gap-x-2 p-2 text-white text-sm text-center rounded-lg hover:bg-gray-600 cursor-pointer bg-gray-800 mt-4 m-2 px-4 hover:scale-105 transition-all'
+                  className="m-2 mt-4 flex cursor-pointer items-center gap-x-2 rounded-lg bg-gray-800 p-2 px-4 text-center text-sm text-white transition-all hover:scale-105 hover:bg-gray-600"
                 >
                   <AiFillRead />
                   Continue Reading

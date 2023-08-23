@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,7 +9,7 @@
 }
 
 html {
-  font-family: "Lora", monospace;
+  font-family: 'Lora', monospace;
 }
 
 /* .bg {

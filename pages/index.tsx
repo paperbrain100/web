@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useUser } from "@auth0/nextjs-auth0";
-import { RoughNotation } from "react-rough-notation";
-import Link from "next/link";
-import Layout from "./layout";
-import toast, { Toaster } from "react-hot-toast";
-import { AiOutlineTwitter, AiOutlineGithub } from "react-icons/ai";
-import Image from "next/image";
-import Logo from "../public/logo.png";
-import Head from "next/head";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import { useUser } from '@auth0/nextjs-auth0';
+import { RoughNotation } from 'react-rough-notation';
+import Link from 'next/link';
+import Layout from './layout';
+import toast, { Toaster } from 'react-hot-toast';
+import { AiOutlineTwitter, AiOutlineGithub } from 'react-icons/ai';
+import Image from 'next/image';
+import Logo from '../public/logo.png';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const { user } = useUser();
@@ -19,7 +19,7 @@ export default function Home() {
     if (user) {
       setActive(true);
       toast.success(`Welcome! ${user.name}`);
-      router.push("/search");
+      router.push('/search');
     }
   }, [user, router]);
 
@@ -28,53 +28,53 @@ export default function Home() {
       <Head>
         <title>PaperBrain</title>
         <meta
-          name='description'
-          content='Exploring your study papers has never been easier!'
+          name="description"
+          content="Exploring your study papers has never been easier!"
         />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout className='overflow-hidden'>
+      <Layout className="overflow-hidden">
         <Toaster />
-        <div className='h-screen'>
-          <div className='bg-gray-50 flex items-center justify-between px-6 shadow'>
-            <div className='inline-flex items-center mx-8 gap-x-6 my-3'>
+        <div className="h-screen">
+          <div className="flex items-center justify-between bg-gray-50 px-6 shadow">
+            <div className="mx-8 my-3 inline-flex items-center gap-x-6">
               <Image
                 src={Logo}
-                className='rounded-2xl'
-                alt='PaperBrain'
+                className="rounded-2xl"
+                alt="PaperBrain"
                 width={40}
                 height={40}
               />
-              <h1 className='text-2xl font-extrabold text-black'>PaperBrain</h1>
+              <h1 className="text-2xl font-extrabold text-black">PaperBrain</h1>
             </div>
-            <button className='p-2 mx-8 text-white text-md text-center rounded-lg cursor-pointer bg-black px-4 hover:scale-105 transition-all'>
-              <Link href={active ? "/search" : "/api/auth/login"}>Sign In</Link>
+            <button className="text-md mx-8 cursor-pointer rounded-lg bg-black p-2 px-4 text-center text-white transition-all hover:scale-105">
+              <Link href={active ? '/search' : '/api/auth/login'}>Sign In</Link>
             </button>
           </div>
-          <div className='p-12 flex items-center justify-center gap-x-12'>
-            <div className='w-[30%]'>
-              <div className='m-4'>
+          <div className="flex items-center justify-center gap-x-12 p-12">
+            <div className="w-[30%]">
+              <div className="m-4">
                 <RoughNotation
                   animationDelay={1000}
                   animationDuration={2000}
-                  type='box'
+                  type="box"
                   show={true}
                 >
-                  <h1 className='font-extrabold text-2xl p-2'>
+                  <h1 className="p-2 text-2xl font-extrabold">
                     Exploring research papers has never been easier!
                   </h1>
                 </RoughNotation>
               </div>
-              <div className='flex items-center justify-center m-8'>
-                <ul className='flex gap-x-4 text-gray-900 text-sm'>
-                  <Link href='https://twitter.com/__paperbrain' target='blank'>
-                    <li className='cursor-pointer hover:scale-105 transition-all'>
+              <div className="m-8 flex items-center justify-center">
+                <ul className="flex gap-x-4 text-sm text-gray-900">
+                  <Link href="https://twitter.com/__paperbrain" target="blank">
+                    <li className="cursor-pointer transition-all hover:scale-105">
                       <AiOutlineTwitter size={22} />
                     </li>
                   </Link>
 
-                  <Link href='https://github.com/paperbrain100' target='blank'>
-                    <li className='cursor-pointer hover:scale-105 transition-all'>
+                  <Link href="https://github.com/paperbrain100" target="blank">
+                    <li className="cursor-pointer transition-all hover:scale-105">
                       <AiOutlineGithub size={22} />
                     </li>
                   </Link>
@@ -82,11 +82,11 @@ export default function Home() {
               </div>
             </div>
             <video
-              className='w-[65%] rounded-xl shadow-2xl'
+              className="w-[65%] rounded-xl shadow-2xl"
               autoPlay
               muted
               loop
-              src='https://user-images.githubusercontent.com/83456083/233063742-ca57e432-a4db-4d65-b7eb-20bd78e3ed72.mp4'
+              src="https://user-images.githubusercontent.com/83456083/233063742-ca57e432-a4db-4d65-b7eb-20bd78e3ed72.mp4"
             />
           </div>
         </div>
