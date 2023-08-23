@@ -107,7 +107,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2 }}
-              className="z-12 absolute top-16 right-8 m-2 flex w-52 flex-col rounded-md border-2 border-gray-200 bg-white"
+              className="z-[99999] absolute top-16 right-8 m-2 flex w-52 flex-col rounded-md border-2 border-gray-200 bg-white"
             >
               <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
