@@ -1,6 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Lora', monospace;
+}
 
 :root {
   --novel-black: rgb(0 0 0);
@@ -54,4 +64,61 @@
 
 body {
   background-color: var(--novel-white);
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #bae390;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #708790;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #bae390;
+}
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.scrollbarHide::-webkit-scrollbar {
+  display: none;
+}
+.gradient {
+  background: linear-gradient(#ffffff, #e0f5cc);
+}
+.typewriter {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  min-height: 50px; /* Gives the height to the typewriter */
+  animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 40vw;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
 }
