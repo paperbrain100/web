@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { toast, Toaster } from 'react-hot-toast';
+
+import { cn } from '../../components/lib/utils';
+
+import { FileText, Loader2, Upload } from 'lucide-react';
 
 import Layout from '../layout';
 import Navbar from '../../components/navbar';
@@ -11,10 +15,6 @@ import { RoughNotation } from 'react-rough-notation';
 import { storage } from '../../config/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
-import { BsArrow90DegDown, BsArrowReturnLeft } from 'react-icons/bs';
-import { AiFillEdit } from 'react-icons/ai';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-
 const Search = () => {
   const { user } = useUser();
   const router = useRouter();
@@ -22,12 +22,16 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  const [dragging, setDragging] = useState(false);
+  const [hide, setHide] = useState(false);
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (file.type !== 'application/pdf') {
       toast.error('Please upload a pdf file');
       return;
     }
+    setLoading(true);
     // Create a root reference
     const storageRef = ref(storage, 'pdfs/' + file.name + Date.now());
 
@@ -61,6 +65,8 @@ const Search = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
           console.log('File available at', downloadURL);
+          setHide(true);
+          setLoading(false);
           toast.success('File uploaded successfully!');
           console.log(
             downloadURL.replace(
@@ -89,6 +95,23 @@ const Search = () => {
     }
   };
 
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragging(false);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragging(false);
+    const file = event.dataTransfer.files[0];
+    setFile(file);
+  };
+
   return (
     <Layout>
       <Toaster />
@@ -108,25 +131,11 @@ const Search = () => {
                 paper_title: 'Lecture Notes: Optimization for Machine Learning',
                 paper_url: 'http://arxiv.org/pdf/1909.03550v1',
               },
-              {
-                paper_authors: 'Elad Hazan',
-                paper_summary:
-                  'Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.',
-                paper_title: 'Lecture Notes: Optimization for Machine Learning',
-                paper_url: 'http://arxiv.org/pdf/1909.03550v1',
-              },
-              {
-                paper_authors: 'Elad Hazan',
-                paper_summary:
-                  'Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.',
-                paper_title: 'Lecture Notes: Optimization for Machine Learning',
-                paper_url: 'http://arxiv.org/pdf/1909.03550v1',
-              },
             ]}
           />
 
           <div className="m-4 flex h-[85vh] w-[90%] flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-white">
-            <div className="flex flex-col items-center justify-center p-8">
+            {/* <div className="flex flex-col items-center justify-center p-8">
               <RoughNotation
                 animationDelay={1000}
                 animationDuration={2000}
@@ -143,7 +152,7 @@ const Search = () => {
                 Click on Continue Reading to open it here
               </p>
             </div>
-            <p>OR</p>
+            <p>OR</p> */}
 
             <div className="flex flex-col items-center justify-center p-8">
               <RoughNotation
@@ -158,7 +167,7 @@ const Search = () => {
                 </h1>
               </RoughNotation>
 
-              <form
+              {/* <form
                 className="flex flex-col items-center gap-y-4"
                 onSubmit={handleSubmit}
               >
@@ -201,33 +210,73 @@ const Search = () => {
                     text={`${Math.floor(progress)}%`}
                   />
                 )}
-              </form>
+              </form> */}
 
-              {loading && (
-                <div className="flex flex-col items-center gap-y-4">
-                  <svg
-                    className="h-5 w-5 animate-spin text-blue-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v1a7 7 0 00-7 7h1zm0 0a8 8 0 018 8H9a7 7 0 00-7-7v1zm0 0h1a8 8 0 018 8v-1a7 7 0 00-7-7zm0 0v1a8 8 0 01-8-8h1a7 7 0 007 7z"
-                    ></path>
-                  </svg>
-                  <p className="text-xl">Processing your document...</p>
+              <div id="file" className="px-5">
+                <div className="w-[540px]">
+                  <div className="p-4">
+                    <label htmlFor="data" className="cursor-pointer">
+                      <div
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        {...(!hide && { onDrop: handleDrop })}
+                        className={cn(
+                          loading ? 'disabled cursor-not-allowed' : '',
+                          dragging
+                            ? 'disabled cursor-not-allowed border-2 border-zinc-400 bg-zinc-300 p-4 '
+                            : '',
+                          hide ? 'disabled cursor-not-allowed bg-zinc-200' : '',
+                          'flex h-52 flex-col items-center justify-center rounded-lg border-2 p-2',
+                        )}
+                      >
+                        {file ? (
+                          <FileText className="h-6 w-6" />
+                        ) : (
+                          <Upload className="h-6 w-6" />
+                        )}
+                        <h2 className="mt-2 font-bold text-black">
+                          {hide
+                            ? 'Uploaded'
+                            : dragging
+                            ? 'Drop here'
+                            : file?.name || 'Drag or click to upload files'}
+                        </h2>
+                      </div>
+                    </label>
+                    <input
+                      type="file"
+                      id="data"
+                      accept=".pdf"
+                      disabled={hide}
+                      onChange={handleChange}
+                      className="hidden"
+                    />
+                    <p className="my-2 flex justify-center font-medium text-black">
+                      {file?.name || 'No file selected'}
+                    </p>
+
+                    <div className="flex justify-center p-4 text-center">
+                      {!loading ? (
+                        <button
+                          disabled={hide}
+                          className="m-2 mt-4 flex w-[80%] cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-800 p-2 px-4 text-center text-lg text-white transition-all hover:scale-105 hover:bg-gray-600"
+                          onClick={handleSubmit}
+                        >
+                          {!hide ? 'Upload' : 'Uploaded'}
+                        </button>
+                      ) : (
+                        <button
+                          className="m-2 mt-4 flex w-[80%] cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-800 p-2 px-4 text-center text-lg text-white transition-all hover:scale-105 hover:bg-gray-600"
+                          disabled
+                        >
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          {Math.floor(progress)} % Uploading
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
