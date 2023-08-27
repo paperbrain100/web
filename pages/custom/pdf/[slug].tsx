@@ -10,6 +10,7 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import Chatbot from '../../../components/chatbot';
 import Logo from '../../../public/logo.png';
 import Image from 'next/image';
+import Navbar from '@/components/navbar';
 
 export default function Pdf() {
   const router = useRouter();
@@ -35,30 +36,19 @@ export default function Pdf() {
 
   return (
     <Layout>
-      <div className="gradient flex h-screen">
-        <div className="flex w-[50vw] flex-col">
-          <RoughNotation
-            animationDelay={1000}
-            animationDuration={2000}
-            type="highlight"
-            color="#f0fdf4"
-            show={true}
-          >
-            <div className="m-4 flex gap-x-4 border-b border-green-200 p-2 pb-6 text-2xl font-bold">
-              <Image
-                src={Logo}
-                className="rounded"
-                alt="Logo"
-                width={32}
-                height={32}
-              />
-              <h1>PaperBrain Upload</h1>
-            </div>
-          </RoughNotation>
-          <Chatbot name="explain" f_path={fpath} />
-        </div>
+      <Navbar heading={true} />
 
-        <motion.div className="h-[99vh] w-[50vw] overflow-x-hidden overflow-y-scroll rounded-md">
+      <motion.div className="flex h-[91vh]">
+        <motion.div className="flex w-[50vw] flex-col">
+          <h1 className="mx-4 border-b border-gray-300 p-2 text-xl font-semibold">
+            Uploaded Paper: {slug}
+          </h1>
+          <motion.div className="min-h-[50vh] overflow-y-auto scroll-smooth">
+            <Chatbot name="explain" f_path={fpath} />
+          </motion.div>
+        </motion.div>
+
+        <motion.div className="flex w-[60vw] justify-center overflow-y-auto overflow-x-hidden rounded-md">
           {pdfURL ? (
             <embed
               src={pdfURL}
@@ -67,12 +57,12 @@ export default function Pdf() {
               height="100%"
             />
           ) : (
-            <div className="absolute right-64 top-[50%] items-center justify-center">
+            <h1 className="m-4 border-b border-green-200 p-2 pb-6 text-2xl font-bold">
               Loading PDF...
-            </div>
+            </h1>
           )}
         </motion.div>
-      </div>
+      </motion.div>
     </Layout>
   );
 }
