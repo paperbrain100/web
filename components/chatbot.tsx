@@ -14,7 +14,7 @@ const Chatbot = (props: { name: string; f_path: string }) => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
-  let url = props.name == 'explain' ? '/chat' : '/explain';
+  let url = props.name == 'explain' ? '/chat' : '/explain-new';
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -31,10 +31,13 @@ const Chatbot = (props: { name: string; f_path: string }) => {
     setChats([...chats, { message: input, author: 'user' }]);
     setLoading(true);
 
+    console.log(url);
+
     client
       .post(url, {
         message: input,
         f_path: props.f_path,
+        // paper_id: props.paper_id,
       })
       .then(res => {
         const Answer = res.data.answer;

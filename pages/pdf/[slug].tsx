@@ -25,6 +25,7 @@ const ViewPdf = () => {
   slug = slug?.replace(/-/g, ' ');
   const [pageNumber, setPageNumber] = useState(1);
   const [pdfURL, setPDFURL] = useState('');
+  const [paperId, setPaperId] = useState('');
 
   const onDocumentLoadSuccess = ({ numPages }: any) => {
     setPageNumber(numPages);
@@ -45,6 +46,19 @@ const ViewPdf = () => {
       });
   }, [slug]);
 
+  useEffect(() => {
+    client
+      .post('/indexpaper', { paperurl: pdfURL })
+      .then(res => {
+        setPaperId(res.data.paper_id);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, [pdfURL]);
+
+  console.log(paperId);
+
   return (
     <Layout>
       <Navbar heading={true} />
@@ -60,7 +74,7 @@ const ViewPdf = () => {
                             response.paper_title && <h1 className='border-2 border-green-200 bg-white m-4 p-2 pb-6'><strong>Abstract - </strong>{response.paper_summary}</h1>
                         } */}
 
-            <Chatbot name="arxiv" f_path="" />
+            <Chatbot name="arxiv" f_path={paperId} />
           </motion.div>
         </motion.div>
 
