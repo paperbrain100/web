@@ -12,6 +12,7 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 import Chatbot from '../../components/chatbot';
+import { Loader2 } from 'lucide-react';
 
 const ViewPdf = () => {
   const router = useRouter();
@@ -74,7 +75,7 @@ const ViewPdf = () => {
                             response.paper_title && <h1 className='border-2 border-green-200 bg-white m-4 p-2 pb-6'><strong>Abstract - </strong>{response.paper_summary}</h1>
                         } */}
 
-            <Chatbot name="arxiv" f_path={paperId} />
+            <Chatbot name="arxiv" f_path={paperId} pdfURL={pdfURL} />
           </motion.div>
         </motion.div>
 
@@ -87,9 +88,10 @@ const ViewPdf = () => {
               height="100%"
             />
           ) : (
-            <h1 className="m-4 border-b border-green-200 p-2 pb-6 text-2xl font-bold">
-              Loading...
-            </h1>
+            <div className="m-4 inline-flex items-center border-b border-green-200 p-2 pb-6 text-2xl font-bold">
+              <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+              Loading PDF...
+            </div>
           )}
         </motion.div>
       </motion.div>

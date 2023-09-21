@@ -44,7 +44,7 @@ export default function Pdf() {
             Uploaded Paper: {slug}
           </h1>
           <motion.div className="min-h-[50vh] overflow-y-auto scroll-smooth">
-            <Chatbot name="explain" f_path={fpath} />
+            <Chatbot name="explain" f_path={fpath} pdfURL={pdfURL} />
           </motion.div>
         </motion.div>
 
