@@ -3,13 +3,14 @@ import { motion } from 'framer-motion';
 import { useUser } from '@auth0/nextjs-auth0';
 import { BsArrowReturnRight } from 'react-icons/bs';
 import { client } from '../utils/client';
+import { Loader2 } from 'lucide-react';
 
 interface Chat {
   message: string;
   author: string;
 }
 
-const Chatbot = (props: { name: string; f_path: string }) => {
+const Chatbot = (props: { name: string; f_path: string; pdfURL: string }) => {
   const [input, setInput] = useState('');
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(false);
@@ -89,6 +90,7 @@ const Chatbot = (props: { name: string; f_path: string }) => {
             </span>
           </div>
         ))}
+
         {loading && (
           <motion.div
             animate={{ rotate: 360 }}
@@ -113,10 +115,23 @@ const Chatbot = (props: { name: string; f_path: string }) => {
                 )
               }
               className="w-full border-none bg-inherit text-[#707070] outline-none placeholder:text-[#707070]"
+              disabled={!props.f_path}
             />
-            <button type="submit" className="ml-2">
-              <BsArrowReturnRight />
-            </button>
+            {props.pdfURL ? (
+              <>
+                {props.f_path ? (
+                  <button type="submit" className="ml-2">
+                    <BsArrowReturnRight />
+                  </button>
+                ) : (
+                  <Loader2 className="ml-2 h-5 w-5 animate-spin" />
+                )}
+              </>
+            ) : (
+              <button type="submit" className="ml-2" disabled={!props.f_path}>
+                <BsArrowReturnRight />
+              </button>
+            )}
           </div>
         </form>
       </div>
