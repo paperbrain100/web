@@ -1,29 +1,31 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import mysql from 'mysql';
+import dotenv from 'dotenv';
+import { createClient } from '@supabase/supabase-js'
 
-import paper from './routes/paper';
+dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+if (supabase) {
+  console.log('Supabase connected');
+}
+
 app.get('/', (req, res) => {
-  res.json({ message: 'Hello PaperBran' });
+  res.json({ message: 'Welcome to PaperBrain' });
 });
 
-const connection = mysql.createConnection({
-  host: 'db-mysql-sfo2-92289-do-user-8489321-0.b.db.ondigitalocean.com',
-});
+// app.use('/paper', paper);
 
-connection.connect(err => {
-  if (err) throw err;
-  console.log('Connected to DB!');
-});
-
-app.use('/paper', paper);
-
-app.listen(8000, () => {
-  console.log('PaperBrain Backend listening on port 8000!');
+app.listen(port, () => {
+  console.log('Server listening on port ' + port);
 });

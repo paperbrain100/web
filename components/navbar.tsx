@@ -75,7 +75,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
           className="flex items-center rounded-full p-2 transition-all hover:scale-105 hover:bg-gray-700 hover:text-gray-50"
           type="submit"
         >
-          <AiOutlineSearch size={21} />
+          <AiOutlineSearch className='text-gray-400' size={21} />
         </button>
       </form>
 
