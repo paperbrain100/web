@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { toast, Toaster } from 'react-hot-toast';
 
-import { cn } from '../../components/lib/utils';
+import { cn } from "../../components/lib/utils"
 
 import { FileText, Loader2, Upload } from 'lucide-react';
 
@@ -117,7 +117,7 @@ const Search = () => {
       <Toaster />
 
       <motion.div className="h-screen bg-white">
-        {user && <Navbar heading={true} />}
+        {user && <Navbar heading={true} query={"null"} />}
         <div className="flex">
           <Sidebar
             openModal={false}
@@ -238,8 +238,8 @@ const Search = () => {
                           {hide
                             ? 'Uploaded'
                             : dragging
-                            ? 'Drop here'
-                            : file?.name || 'Drag or click to upload files'}
+                              ? 'Drop here'
+                              : file?.name || 'Drag or click to upload files'}
                         </h2>
                       </div>
                     </label>

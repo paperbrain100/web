@@ -75,16 +75,14 @@ const Chatbot = (props: { name: string; f_path: string; pdfURL: string }) => {
         {chats.map((chat, index) => (
           <div
             key={index}
-            className={`mx-2.5 my-2 rounded-lg py-0.5 ${
-              chat.author === 'user' ? 'text-right' : 'w-[90%] text-left'
-            }`}
+            className={`mx-2.5 my-2 rounded-lg py-0.5 ${chat.author === 'user' ? 'text-right' : 'w-[90%] text-left'
+              }`}
           >
             <span
-              className={`inline-block rounded-lg px-2 py-0.5 text-base font-medium ${
-                chat.author === 'user'
-                  ? 'rounded-br-none bg-[#FFEFD9] text-[#FF9500]'
-                  : 'rounded-bl-none bg-gray-100 text-black'
-              }`}
+              className={`inline-block rounded-lg px-2 py-0.5 text-base font-medium ${chat.author === 'user'
+                ? 'rounded-br-none bg-[#FFEFD9] text-[#FF9500]'
+                : 'rounded-bl-none bg-gray-100 text-black'
+                }`}
             >
               {chat.message}
             </span>
@@ -111,7 +109,7 @@ const Chatbot = (props: { name: string; f_path: string; pdfURL: string }) => {
               onChange={event =>
                 setInput(
                   event.target.value.charAt(0).toUpperCase() +
-                    event.target.value.slice(1),
+                  event.target.value.slice(1),
                 )
               }
               className="w-full border-none bg-inherit text-[#707070] outline-none placeholder:text-[#707070]"
