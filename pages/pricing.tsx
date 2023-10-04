@@ -31,7 +31,7 @@ const Pricing = (props) => {
     };
     return (
         <div>
-            <Navbar heading={true} />
+            <Navbar heading={true} query={"null"} />
             <div className="flex flex-col items-center justify-center">
                 <Elements stripe={props.stripePromise} options={options}>
                     <CheckoutForm />

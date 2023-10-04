@@ -1,18 +1,20 @@
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import { client } from '../../utils/client';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Layout from '../layout';
 import Navbar from '../../components/navbar';
-import { toast, Toaster } from 'react-hot-toast';
-import { useUser } from '@auth0/nextjs-auth0';
 import { Document, Outline, Page, pdfjs } from 'react-pdf';
-import { RoughNotation } from 'react-rough-notation';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-
-import Chatbot from '../../components/chatbot';
 import { Loader2 } from 'lucide-react';
+import Chatbot from '../../components/chatbot';
+
+import { Viewer, Worker } from '@react-pdf-viewer/core';
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 const ViewPdf = () => {
   const router = useRouter();
@@ -60,9 +62,12 @@ const ViewPdf = () => {
 
   console.log(paperId);
 
+  const defaultLayoutPluginInstance = defaultLayoutPlugin(
+  );
+
   return (
     <Layout>
-      <Navbar heading={true} />
+      <Navbar heading={true} query={"null"} />
 
       <motion.div className="flex h-[91vh]">
         <motion.div className="flex w-[50vw] flex-col">
@@ -71,28 +76,27 @@ const ViewPdf = () => {
           </h1>
           {/* </RoughNotation> */}
           <motion.div className="min-h-[50vh] overflow-y-auto scroll-smooth">
-            {/* {
-                            response.paper_title && <h1 className='border-2 border-green-200 bg-white m-4 p-2 pb-6'><strong>Abstract - </strong>{response.paper_summary}</h1>
-                        } */}
-
             <Chatbot name="arxiv" f_path={paperId} pdfURL={pdfURL} />
           </motion.div>
         </motion.div>
 
         <motion.div className="flex w-[60vw] justify-center overflow-y-auto overflow-x-hidden rounded-md">
           {pdfURL ? (
-            <embed
-              src={pdfURL}
-              type="application/pdf"
-              width="100%"
-              height="100%"
-            />
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js">
+              <div className='w-[50vw] rounded-lg overflow-x-hidden m-4'>
+                <Viewer
+                  fileUrl={pdfURL}
+                  defaultScale={1.2}
+                />
+              </div>
+            </Worker>
           ) : (
             <div className="m-4 inline-flex items-center border-b border-green-200 p-2 pb-6 text-2xl font-bold">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               Loading PDF...
             </div>
           )}
+
         </motion.div>
       </motion.div>
     </Layout>

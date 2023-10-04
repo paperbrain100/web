@@ -36,7 +36,7 @@ export default function Pdf() {
 
   return (
     <Layout>
-      <Navbar heading={true} />
+      <Navbar heading={true} query={"null"} />
 
       <motion.div className="flex h-[91vh]">
         <motion.div className="flex w-[50vw] flex-col">

@@ -22,29 +22,19 @@ const Search = () => {
     }
 
     console.log(Cookies.get('apiKey'));
-
-    toast.success(`Welcome! ${user.name}`);
   }, [user, router]);
 
   return (
     <Layout className="overflow-hidden">
       <Toaster />
-      <motion.div className="h-screen bg-white">
-        {user && <Navbar heading={true} />}
+      <motion.div className="h-screen">
+        {user && <Navbar heading={true} query={"null"} />}
         <div className="flex">
           <Sidebar
             openModal={false}
             papers={false}
             heading="Your Starred Papers"
-            response={[
-              {
-                paper_authors: 'Elad Hazan',
-                paper_summary:
-                  'Lecture notes on optimization for machine learning, derived from a course at\nPrinceton University and tutorials given in MLSS, Buenos Aires, as well as\nSimons Foundation, Berkeley.',
-                paper_title: 'Lecture Notes: Optimization for Machine Learning',
-                paper_url: 'http://arxiv.org/pdf/1909.03550v1',
-              },
-            ]}
+            response={[]}
           />
 
           <div className="m-4 flex h-[85vh] w-[90%] flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-white">

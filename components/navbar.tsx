@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
@@ -11,19 +11,24 @@ import {
   AiOutlineUpload,
   AiOutlineEdit,
   AiOutlineUser,
-  AiFillHome,
   AiOutlineHome,
 } from 'react-icons/ai';
 import Logo from '../public/logo.png';
 import { toast, Toaster } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 
-const Navbar = ({ heading }: { heading: Boolean }) => {
+const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
   const { user } = useUser();
   const router = useRouter();
   const [newQuery, setNewQuery] = useState('');
   const [userProfileMenu, setUserProfileMenu] = useState(false);
   const [apiKey, setApiKey] = useState('');
+
+  useEffect(() => {
+    if (query != 'null') {
+      setNewQuery(query);
+    }
+  }, []);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -49,10 +54,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
     Cookies.set('apiKey', apiKey, { expires: 7 });
   };
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
+    <div
       className="z-10 flex w-full items-center justify-around bg-gray-50 p-1 shadow"
     >
       <Toaster />
@@ -62,7 +64,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
 
       <form
         onSubmit={handleSubmit}
-        className="mx-12 flex items-center justify-center rounded-full border-2 border-gray-400 p-1 px-2"
+        className="mx-12 flex items-center justify-center rounded-full border border-gray-400 p-1 px-2"
       >
         <input
           type="text"
@@ -94,12 +96,12 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             onClick={handleUserProfileClick}
-            className="focus-2  focus-green-600 focus-offset-2 m-2 rounded-full border border-gray-400 p-1 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-gray-50 focus:outline-none"
+            className="focus-2 focus-green-600 focus-offset-2 m-2 rounded-full border border-gray-400 p-1 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-gray-50 focus:outline-none"
           >
             {userProfileMenu ? (
-              <IoIosArrowUp size={21} />
+              <IoIosArrowUp size={18} />
             ) : (
-              <IoIosArrowDown size={21} />
+              <IoIosArrowDown size={18} />
             )}
           </motion.button>
           {userProfileMenu && (
@@ -107,7 +109,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2 }}
-              className="z-[99999] absolute top-16 right-8 m-2 flex w-52 flex-col rounded-md border-2 border-gray-200 bg-white"
+              className="z-[99999] absolute top-16 right-8 m-2 flex w-52 flex-col rounded-md border border-gray-200 bg-white"
             >
               <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
@@ -130,20 +132,13 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
                 <AiOutlineUpload className="mr-2" />
                 Upload Papers
               </Link>
-              <Link
-                className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
-                href="/write"
-              >
-                <AiOutlineEdit className="mr-2" />
-                Write Papers
-              </Link>
-              <Link
+              {/* <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
                 href="/pricing"
               >
                 <AiOutlineEdit className="mr-2" />
                 Pricing
-              </Link>
+              </Link> */}
               <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
                 href="/api/auth/logout"
@@ -171,7 +166,7 @@ const Navbar = ({ heading }: { heading: Boolean }) => {
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
