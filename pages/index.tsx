@@ -32,10 +32,10 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout className="overflow-hidden">
+      <Layout className="overflow-hidden ">
         <Toaster />
         <div className="h-screen">
-          <div className="flex items-center justify-between bg-gray-50 px-6 shadow">
+          <div className="flex items-center justify-between px-6 shadow">
             <div className="mx-8 my-3 inline-flex items-center gap-x-6">
               <Image
                 src={Logo}

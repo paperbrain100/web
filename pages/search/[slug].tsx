@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Layout from '../layout';
 import { useUser } from '@auth0/nextjs-auth0';
 import { BsArrowReturnLeft } from 'react-icons/bs';
-import { AiFillRead, AiFillFilePdf, AiOutlineStar } from 'react-icons/ai';
+import { AiFillFilePdf } from 'react-icons/ai';
 import { toast, Toaster } from 'react-hot-toast';
 import { RoughNotation } from 'react-rough-notation';
 
@@ -32,9 +32,10 @@ const SearchResults = () => {
     const url = e.paper_url;
     setPdfs(url);
     setOpenModal(true);
+
     // convert e.paper_authors from string to array
     e.paper_authors = e.paper_authors.split(',');
-    // console.log(e.paper_authors);
+
     modalContent.paper_authors = e.paper_authors;
     setModalContent(e);
   };
@@ -64,17 +65,17 @@ const SearchResults = () => {
     <Layout className="overflow-hidden">
       <Toaster />
 
-      <motion.div className="h-screen bg-white">
-        {user && <Navbar heading={true} />}
+      <motion.div className="h-screen">
+        {user && <Navbar heading={true} query={slug} />}
         <div className="flex">
-          {response && (
+          {response ? (
             <Sidebar
               papers={true}
-              heading="Your Search results are here"
+              heading={`Results for ${slug}`}
               response={response}
               openModal={openModal}
             />
-          )}
+          ) : (<p>Loading...</p>)}
 
           {modal ? (
             <motion.div
@@ -83,7 +84,7 @@ const SearchResults = () => {
               transition={{ duration: 0.5 }}
               className="m-4 flex h-[85vh] w-[90%] flex-col items-center rounded-lg border-2 border-dashed border-gray-300 bg-white"
             >
-              <div className="m-6 h-[78vh]">
+              <div className="m-6 h-[90vh]">
                 <h1 className="px-4 text-center text-xl font-bold">
                   {modalContent?.paper_title}
                 </h1>
@@ -112,10 +113,10 @@ const SearchResults = () => {
                       <AiFillFilePdf />
                       View PDF
                     </button>
-                    <button className="flex w-32 cursor-pointer items-center gap-x-2 rounded-lg bg-gray-800 p-2 px-4 text-center text-sm text-white transition-all hover:scale-105 hover:bg-gray-600">
+                    {/* <button className="flex w-32 cursor-pointer items-center gap-x-2 rounded-lg bg-gray-800 p-2 px-4 text-center text-sm text-white transition-all hover:scale-105 hover:bg-gray-600">
                       <AiOutlineStar />
                       Star
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

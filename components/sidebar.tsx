@@ -14,16 +14,16 @@ type Type = {
 
 const Sidebar = ({ papers, response, heading, openModal }: Type) => {
   return (
-    <div className="h-[92vh] w-[27vw] rounded border-2 shadow">
+    <div className="h-[96vh] w-[27vw] rounded">
       <div className="flex flex-col items-center justify-center gap-y-2 p-3">
-        <h2 className="m-1 text-xl font-bold capitalize">{heading}</h2>
+        <h2 className="m-1 text-xl font-bold ">{heading}</h2>
       </div>
-      <div className="scrollbarHide m-2 mt-0 flex h-[78vh] w-[25vw] flex-col items-center overflow-x-hidden">
+      <div className="scrollbarHide m-2 mt-0 flex h-[82vh] w-[25vw] flex-col items-center overflow-x-hidden">
         {response.map((paper: any) => {
           return (
             <div
               key={paper.paper_title}
-              className="m-1 flex w-full flex-col items-center justify-center rounded-lg border-2 border-gray-300"
+              className="m-1 flex w-full flex-col items-center justify-center rounded-lg border border-gray-300"
             >
               <div className="flex flex-col items-center justify-center rounded-lg bg-white">
                 <div className="flex flex-col flex-wrap items-center justify-center">

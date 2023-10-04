@@ -40,7 +40,6 @@ const Layout = ({ children }: any) => {
         animate="enter" // Animated state to variants.enter
         exit="exit" // Exit state (used later) to variants.exit
         transition={{ type: 'linear' }} // Set the transition to linear
-        className="bg-white"
       >
         {children}
       </motion.main>
