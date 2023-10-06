@@ -85,14 +85,14 @@ const SearchResults = () => {
               className="m-4 flex h-[85vh] w-[90%] flex-col items-center rounded-lg border-2 border-dashed border-gray-300 bg-white"
             >
               <div className="m-6 h-[90vh]">
-                <h1 className="px-4 text-center text-xl font-bold">
+                <h1 className="px-4 text-center text-2xl font-bold">
                   {modalContent?.paper_title}
                 </h1>
                 <div className="h-[65vh]">
                   <div className="mx-4 mt-6 inline-flex">
                     <p className="font-bold underline">Authors: </p>
                     <p className="mx-4 text-base">
-                      {modalContent?.paper_authors.join(' ; \u00A0\u00A0')}
+                      {modalContent?.paper_authors.join(', \u00A0\u00A0')}
                     </p>
                   </div>
                   <div className="m-4 flex flex-col">
@@ -100,7 +100,7 @@ const SearchResults = () => {
                       Abstract
                     </h1>
                     <div className="h-[51vh] overflow-y-auto pr-2">
-                      <p className="text-base">{modalContent?.paper_summary}</p>
+                      <p className="text-lg">{modalContent?.paper_summary}</p>
                     </div>
                   </div>
                 </div>

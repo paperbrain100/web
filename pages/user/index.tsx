@@ -7,6 +7,7 @@ import Head from 'next/head';
 import Layout from '../layout';
 import Navbar from '../../components/navbar';
 
+
 const User = () => {
     const { user } = useUser();
     return (
@@ -29,9 +30,6 @@ const User = () => {
                         </div>
                         <p className="text-md font-bold text-gray-700">@{user?.nickname}</p>
                         <p className="text-md font-bold text-gray-700">{user?.email}</p>
-                    </div>
-                    <div className="mt-4 h-full w-2/3">
-                        <h1 className="text-4xl font-bold text-gray-700">Your Papers</h1>
                     </div>
                 </div>
             </Layout>

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { toast, Toaster } from 'react-hot-toast';
 
-import { cn } from "../../components/lib/utils"
+import { cn } from "../../utils/utils"
 
 import { FileText, Loader2, Upload } from 'lucide-react';
 
@@ -12,7 +12,7 @@ import Layout from '../layout';
 import Navbar from '../../components/navbar';
 import Sidebar from '../../components/sidebar';
 import { RoughNotation } from 'react-rough-notation';
-import { storage } from '../../config/firebase';
+import { storage } from '../../utils/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const Search = () => {
@@ -116,10 +116,10 @@ const Search = () => {
     <Layout>
       <Toaster />
 
-      <motion.div className="h-screen bg-white">
+      <motion.div className="h-screen bg-white ">
         {user && <Navbar heading={true} query={"null"} />}
-        <div className="flex">
-          <Sidebar
+        <div className="flex h-full mt-24 justify-center">
+          {/* <Sidebar
             openModal={false}
             papers={false}
             heading="Your Uploaded Papers"
@@ -132,9 +132,9 @@ const Search = () => {
                 paper_url: 'http://arxiv.org/pdf/1909.03550v1',
               },
             ]}
-          />
+          /> */}
 
-          <div className="m-4 flex h-[85vh] w-[90%] flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-white">
+          <div className="flex h-[65vh] w-[60%] flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-white">
             {/* <div className="flex flex-col items-center justify-center p-8">
               <RoughNotation
                 animationDelay={1000}
@@ -154,7 +154,7 @@ const Search = () => {
             </div>
             <p>OR</p> */}
 
-            <div className="flex flex-col items-center justify-center p-8">
+            <div className="flex flex-col items-center justify-center">
               <RoughNotation
                 animationDelay={1000}
                 animationDuration={2000}
@@ -212,7 +212,7 @@ const Search = () => {
                 )}
               </form> */}
 
-              <div id="file" className="px-5">
+              <div id="file" className="px-5 ">
                 <div className="w-[540px]">
                   <div className="p-4">
                     <label htmlFor="data" className="cursor-pointer">
