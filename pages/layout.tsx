@@ -10,7 +10,7 @@ const variants = {
 
 const Layout = ({ children }: any) => {
   return (
-    <div>
+    <>
       <Head>
         <title>PaperBrain</title>
         <link rel="icon" href="/favicon.ico" />
@@ -43,7 +43,7 @@ const Layout = ({ children }: any) => {
       >
         {children}
       </motion.main>
-    </div>
+    </>
   );
 };
 

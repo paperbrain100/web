@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
+import { UserProvider, useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -12,10 +12,12 @@ import {
   AiOutlineEdit,
   AiOutlineUser,
   AiOutlineHome,
+  AiOutlineMoneyCollect,
 } from 'react-icons/ai';
 import Logo from '../public/logo.png';
 import { toast, Toaster } from 'react-hot-toast';
 import Cookies from 'js-cookie';
+import { LucideUser, LucideUserX, UserCog } from 'lucide-react';
 
 const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
   const { user } = useUser();
@@ -55,11 +57,20 @@ const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
   };
   return (
     <div
-      className="z-10 flex w-full items-center justify-around bg-gray-50 p-1 shadow"
+      className="z-10 flex w-full items-center justify-around bg-gray-50 p-1 py-2 shadow"
     >
       <Toaster />
       {heading && (
-        <h1 className="text-2xl font-extrabold text-black">PaperBrain</h1>
+        <div className="mx-8 my-3 inline-flex items-center gap-x-6">
+          <Image
+            src={Logo}
+            className="rounded-2xl"
+            alt="PaperBrain"
+            width={40}
+            height={40}
+          />
+          <h1 className="text-2xl font-extrabold text-black">PaperBrain</h1>
+        </div>
       )}
 
       <form
@@ -82,13 +93,7 @@ const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
       </form>
 
       <div className="flex items-center justify-center">
-        <Image
-          src={Logo}
-          alt="user-profile-picture"
-          className="rounded-full"
-          width={32}
-          height={32}
-        />
+        <LucideUser size={18} />
         <div className="flex items-center p-2 sm:text-left">
           <p className="text-center font-semibold">{user?.name}</p>
 
@@ -99,9 +104,9 @@ const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
             className="focus-2 focus-green-600 focus-offset-2 m-2 rounded-full border border-gray-400 p-1 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-gray-50 focus:outline-none"
           >
             {userProfileMenu ? (
-              <IoIosArrowUp size={18} />
+              <IoIosArrowUp size={12} />
             ) : (
-              <IoIosArrowDown size={18} />
+              <IoIosArrowDown size={12} />
             )}
           </motion.button>
           {userProfileMenu && (
@@ -109,7 +114,7 @@ const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2 }}
-              className="z-[99999] absolute top-16 right-8 m-2 flex w-52 flex-col rounded-md border border-gray-200 bg-white"
+              className="z-[99999] absolute top-12 right-20 m-2 flex w-52 flex-col rounded-md border border-gray-200 bg-white"
             >
               <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
@@ -132,13 +137,13 @@ const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
                 <AiOutlineUpload className="mr-2" />
                 Upload Papers
               </Link>
-              {/* <Link
+              <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
                 href="/pricing"
               >
-                <AiOutlineEdit className="mr-2" />
+                <AiOutlineMoneyCollect className="mr-2" />
                 Pricing
-              </Link> */}
+              </Link>
               <Link
                 className="focus-2 focus-green-600 focus-offset-2 m-1 flex items-center rounded-lg p-2 text-center text-sm font-semibold text-gray-600 transition-all hover:border-transparent hover:bg-gray-600 hover:text-white focus:outline-none"
                 href="/api/auth/logout"
@@ -166,7 +171,7 @@ const Navbar = ({ heading, query }: { heading: Boolean, query: any }) => {
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
