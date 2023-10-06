@@ -10,8 +10,6 @@ const Pricing = () => {
     const router = useRouter();
 
     const handleClick = (type: string) => {
-        console.log("clicked ", type);
-
         if (type === "free") {
             toast.success("You're already on the free plan!");
             return;
@@ -23,15 +21,15 @@ const Pricing = () => {
     return (
         <div>
             <Navbar heading={true} query={"null"} />
-            <section className="min-h-screen w-full flex flex-col items-center justify-center">
-                <h1 className="text-4xl font-bold text-center text-zinc-900 dark:text-zinc-100"> Pricing</h1>
-                <div className="container px-4 py-12 md:px-6">
+            <h1 className="text-4xl font-bold text-center text-zinc-900 dark:text-zinc-100 pt-12"> Pricing</h1>
+            <section className="min-h-[60vh] w-full flex flex-col items-center justify-center">
+                <div className="container px-4 md:px-6 ">
                     <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
                         <div className="flex flex-col hover:scale-105 transition-all p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-300">
                             <div>
                                 <h3 className="text-2xl font-bold text-center">Free</h3>
                                 <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
-                                    <span className="text-4xl font-bold">$0</span>/ month
+                                    <span className="text-4xl font-bold">$0</span>for 10 credits
                                 </div>
                                 <ul className="mt-4 space-y-2">
                                     <li className="flex items-center">
@@ -71,7 +69,7 @@ const Pricing = () => {
                                 </ul>
                             </div>
                             <div className="mt-6">
-                                <Button onClick={() => handleClick("free")} className="w-full">Get Started</Button>
+                                <Button onClick={() => handleClick("free")} className="w-full">Continue Reading</Button>
                             </div>
                         </div>
                         <div className="relative flex flex-col hover:scale-105 transition-all p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-purple-500">
@@ -81,7 +79,7 @@ const Pricing = () => {
                             <div>
                                 <h3 className="text-2xl font-bold text-center">Pro</h3>
                                 <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
-                                    <span className="text-4xl font-bold">$20</span>/ month
+                                    <span className="text-4xl font-bold">$20</span>for 50 credits
                                 </div>
                                 <ul className="mt-4 space-y-2">
                                     <li className="flex items-center">
@@ -138,14 +136,14 @@ const Pricing = () => {
                                 </ul>
                             </div>
                             <div className="mt-6">
-                                <Button onClick={() => handleClick("braineer")} className="w-full bg-gradient-to-r from-pink-500 to-purple-500">Get Started</Button>
+                                <Button onClick={() => handleClick("pro")} className="w-full bg-gradient-to-r from-pink-500 to-purple-500">Get Started</Button>
                             </div>
                         </div>
                         <div className="flex flex-col p-6 bg-white hover:scale-105 transition-all shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-300">
                             <div>
                                 <h3 className="text-2xl font-bold text-center">Braineer</h3>
                                 <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
-                                    <span className="text-4xl font-bold">$39</span>/ month
+                                    <span className="text-4xl font-bold">$39</span>for 100 credits
                                 </div>
                                 <ul className="mt-4 space-y-2">
                                     <li className="flex items-center">
@@ -219,7 +217,7 @@ const Pricing = () => {
                                 </ul>
                             </div>
                             <div className="mt-6">
-                                <Button onClick={() => handleClick("free")} className="w-full">Get Started</Button>
+                                <Button onClick={() => handleClick("braineer")} className="w-full">Get Started</Button>
                             </div>
                         </div>
                     </div>

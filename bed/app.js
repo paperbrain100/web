@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
+import user from './routes/user.js';
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to PaperBrain' });
 });
 
-// app.use('/paper', paper);
+app.use('/user', user);
 
 app.listen(port, () => {
   console.log('Server listening on port ' + port);
