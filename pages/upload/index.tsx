@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { toast, Toaster } from 'react-hot-toast';
 
-import { cn } from "../../components/lib/utils"
+import { cn } from "../../utils/utils"
 
 import { FileText, Loader2, Upload } from 'lucide-react';
 
@@ -12,7 +12,7 @@ import Layout from '../layout';
 import Navbar from '../../components/navbar';
 import Sidebar from '../../components/sidebar';
 import { RoughNotation } from 'react-rough-notation';
-import { storage } from '../../config/firebase';
+import { storage } from '../../utils/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const Search = () => {

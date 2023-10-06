@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { BiArrowBack } from 'react-icons/bi';
-import { useUser } from '@auth0/nextjs-auth0';
-import { useRouter } from 'next/router';
 import { AiFillRead, AiOutlineUpload } from 'react-icons/ai';
 
 type Type = {
