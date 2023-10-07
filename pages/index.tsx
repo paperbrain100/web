@@ -34,7 +34,7 @@ export default function Home() {
       </Head>
       <Layout className="overflow-hidden">
         <Toaster />
-        <div className="h-screen ">
+        <div className="h-screen">
           <div className="flex items-center bg-gray-50 justify-between px-6 py-1 shadow">
             <div className="mx-8 my-3 inline-flex items-center gap-x-6">
               <Image

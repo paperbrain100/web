@@ -16,9 +16,27 @@ const Search = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (user && !user) {
       router.push('/');
       return;
+    }
+
+    if (user) {
+      fetch('/api/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user })
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          toast.success(`${data.message}`);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
 
     console.log(Cookies.get('apiKey'));
@@ -33,7 +51,7 @@ const Search = () => {
           <Sidebar
             openModal={false}
             papers={false}
-            heading="Your Starred Papers"
+            heading="Start by searching above!"
             response={[]}
           />
 
@@ -48,12 +66,12 @@ const Search = () => {
                 show={true}
               >
                 <h1 className="m-2 flex items-center p-2 text-3xl font-bold">
-                  Your Starred Papers are here{' '}
+                  Welcome to PaperBrain{' '}
                   <BsArrowReturnLeft size={21} className="ml-4" />
                 </h1>
               </RoughNotation>
               <p className="mt-2 w-[90%] text-base">
-                Click on Continue Reading to open it here
+                You can search for any paper you want to read and PaperBrain will help you to read it in a better way.
               </p>
             </div>
           </div>

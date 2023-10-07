@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Layout from '../layout';
 import { useUser } from '@auth0/nextjs-auth0';
 import { BsArrowReturnLeft } from 'react-icons/bs';
-import { AiFillFilePdf } from 'react-icons/ai';
+import { AiFillFilePdf, AiOutlineStar } from 'react-icons/ai';
 import { toast, Toaster } from 'react-hot-toast';
 import { RoughNotation } from 'react-rough-notation';
 
@@ -41,7 +41,46 @@ const SearchResults = () => {
   };
 
   const handleClick = (e: any) => {
+    console.log(e);
+
+    fetch('/api/user', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user, viewedPapers: e.paper_url }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        toast.success(`${data.message}`);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+
     router.push(`/pdf/${e.paper_title.replace(/ /g, '-')}`);
+  };
+
+  const handleStarred = (e: any) => {
+    console.log(e);
+
+    fetch('/api/user', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user, starredPapers: e.paper_url }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        toast.success(`${data.message}`);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -113,10 +152,10 @@ const SearchResults = () => {
                       <AiFillFilePdf />
                       View PDF
                     </button>
-                    {/* <button className="flex w-32 cursor-pointer items-center gap-x-2 rounded-lg bg-gray-800 p-2 px-4 text-center text-sm text-white transition-all hover:scale-105 hover:bg-gray-600">
+                    <button onClick={() => handleStarred(modalContent)} className="flex w-32 cursor-pointer items-center gap-x-2 rounded-lg bg-gray-800 p-2 px-4 text-center text-sm text-white transition-all hover:scale-105 hover:bg-gray-600">
                       <AiOutlineStar />
                       Star
-                    </button> */}
+                    </button>
                   </div>
                 </div>
               </div>

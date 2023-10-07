@@ -44,9 +44,18 @@ const readById = async (req, res) => {
 
 const update = async (req, res) => {
     const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+    console.log(req.body);
+
     const response = await supabase
         .from('user')
-        .update(req.body)
+        .update({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            viewedPapers: req.body.viewedPapers,
+            starredPapers: req.body.starredPapers,
+        })
         .eq('userId', req.params.id);
 
     if (response.error) {

@@ -21,7 +21,12 @@ const Pricing = () => {
     return (
         <div>
             <Navbar heading={true} query={"null"} />
-            <h1 className="text-4xl font-bold text-center text-zinc-900 dark:text-zinc-100 pt-12"> Pricing</h1>
+            <div className='flex flex-col items-center gap-y-4'>
+                <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 pt-12"> Pricing</h1>
+                <p className=''>
+                    0.5 credits are used per question asked to a paper. 1 credit is used per paper viewed. 1 credit is used per paper uploaded.
+                </p>
+            </div>
             <section className="min-h-[60vh] w-full flex flex-col items-center justify-center">
                 <div className="container px-4 md:px-6 ">
                     <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
@@ -47,7 +52,7 @@ const Pricing = () => {
                                         >
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
-                                        View 2 Papers per Day
+                                        View/Upload 10 Papers per Day
                                     </li>
                                     <li className="flex items-center">
                                         <svg
@@ -97,7 +102,7 @@ const Pricing = () => {
                                         >
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
-                                        Unlimited Paper Viewing
+                                        View/Upload 50 Papers per Day
                                     </li>
                                     <li className="flex items-center">
                                         <svg
@@ -115,23 +120,6 @@ const Pricing = () => {
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
                                         Limited Conversations with Papers
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg
-                                            className=" text-white text-xs bg-green-500 rounded-full mr-2 p-1"
-                                            fill="none"
-                                            height="24"
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            viewBox="0 0 24 24"
-                                            width="24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <polyline points="20 6 9 17 4 12" />
-                                        </svg>
-                                        Unlimited Uploads
                                     </li>
                                 </ul>
                             </div>
@@ -197,23 +185,7 @@ const Pricing = () => {
                                         </svg>
                                         Unlimited Conversations with Papers
                                     </li>
-                                    <li className="flex items-center">
-                                        <svg
-                                            className=" text-white text-xs bg-green-500 rounded-full mr-2 p-1"
-                                            fill="none"
-                                            height="24"
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            viewBox="0 0 24 24"
-                                            width="24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <polyline points="20 6 9 17 4 12" />
-                                        </svg>
-                                        Dedicated Support
-                                    </li>
+
                                 </ul>
                             </div>
                             <div className="mt-6">

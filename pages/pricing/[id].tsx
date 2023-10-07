@@ -11,12 +11,17 @@ import {
 } from "@stripe/react-stripe-js";
 import { useRouter } from 'next/router';
 import { Button } from '@/components/ui/button';
+import { useUser } from '@auth0/nextjs-auth0';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
+    const router = useRouter();
+    const { user } = useUser();
+
+    const { id } = router.query;
 
     const [email, setEmail] = React.useState('');
     const [message, setMessage] = React.useState(null);
@@ -37,8 +42,29 @@ function CheckoutForm() {
 
         stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
             switch (paymentIntent.status) {
-                case "succeeded":
+                case "succeeded": {
                     setMessage("Payment succeeded!");
+
+                    console.log(id);
+                    let credits = 0;
+
+                    if (id == "pro") {
+                        credits = 50;
+                    }
+                    else if (id == "braineer") {
+                        credits = 100;
+                    }
+
+                    fetch("/api/update-credits", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ user, credits: credits }),
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            console.log(data);
+                        });
+                }
                     break;
                 case "processing":
                     setMessage("Your payment is processing.");
@@ -92,13 +118,13 @@ function CheckoutForm() {
     };
 
     return (
-        <form className='p-4' id="payment-form" onSubmit={handleSubmit}>
+        <form className='flex flex-col justify-center bg-white rounded-lg w-[40vw] p-12' id="payment-form" onSubmit={handleSubmit}>
             <LinkAuthenticationElement
                 id="link-authentication-element"
                 onChange={(e: any) => setEmail(e.target.value)}
             />
             <PaymentElement id="payment-element" options={paymentElementOptions} />
-            <Button disabled={isLoading || !stripe || !elements} id="submit">
+            <Button className='m-2' disabled={isLoading || !stripe || !elements} id="submit">
                 <span id="button-text">
                     {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
                 </span>
