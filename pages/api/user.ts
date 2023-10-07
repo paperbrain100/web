@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+const BACKEND_URL =
+  process.env.ENV == 'production'
+    ? 'https://paperbrain-bed.onrender.com'
+    : 'http://localhost:8000';
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -14,7 +19,7 @@ export default async function handler(
       userId: user.sid,
     };
 
-    fetch('http://localhost:8000/user', {
+    fetch(`${BACKEND_URL}/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +40,7 @@ export default async function handler(
   }
 
   if (method == 'GET') {
-    fetch('http://localhost:8000/user', {
+    fetch(`${BACKEND_URL}/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +61,6 @@ export default async function handler(
 
   if (method == 'PUT') {
     const body = req.body;
-    console.log('here', body);
 
     if (!body) {
       return res.status(400).json({
@@ -85,7 +89,7 @@ export default async function handler(
       };
     }
 
-    fetch(`http://localhost:8000/user/${user.sid}`, {
+    fetch(`${BACKEND_URL}/user/${user.sid}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -14,6 +14,7 @@ import { BsArrowReturnLeft } from 'react-icons/bs';
 const Search = () => {
   const { user } = useUser();
   const router = useRouter();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     if (user && !user) {
@@ -32,7 +33,6 @@ const Search = () => {
         .then(res => res.json())
         .then(data => {
           console.log(data);
-          toast.success(`${data.message}`);
         })
         .catch(err => {
           console.log(err);
@@ -41,6 +41,23 @@ const Search = () => {
 
     console.log(Cookies.get('apiKey'));
   }, [user, router]);
+
+  useEffect(() => {
+    fetch('/api/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setData(data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Layout className="overflow-hidden">
@@ -51,7 +68,7 @@ const Search = () => {
           <Sidebar
             openModal={false}
             papers={false}
-            heading="Start by searching above!"
+            heading="Your Starred Papers are here!"
             response={[]}
           />
 
@@ -61,8 +78,7 @@ const Search = () => {
                 animationDelay={1000}
                 animationDuration={2000}
                 type="highlight"
-                // color='#f0fdf4'
-                color="rgb(229 231 235)"
+                color='#f0fdf4'
                 show={true}
               >
                 <h1 className="m-2 flex items-center p-2 text-3xl font-bold">
